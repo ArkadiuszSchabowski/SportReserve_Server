@@ -1,0 +1,200 @@
+﻿#nullable disable
+
+using AutoMapper;
+using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
+using Moq;
+using SportReserveDatabase.Entities;
+using SportReserveServer;
+using SportReserveServer.Interfaces.Aggregates;
+using SportReserveServer.Models;
+using SportReserveServer.Services;
+
+namespace SportReserveServerUnitTests.Services
+{
+    [Trait("Category", "Unit")]
+    public class AccountServiceUnitTests
+    {
+        private readonly Mock<IUserAggregateRepository> _mockRepository;
+        private readonly Mock<IUserAggregateValidator> _mockValidator;
+        private readonly Mock<IPasswordHasher<User>> _mockPasswordHasher;
+        private readonly Mock<IMapper> _mockMapper;
+        public AccountServiceUnitTests()
+        {
+            _mockRepository = new Mock<IUserAggregateRepository>();
+            _mockValidator = new Mock<IUserAggregateValidator>();
+            _mockPasswordHasher = new Mock<IPasswordHasher<User>>();
+            _mockMapper = new Mock<IMapper>();
+        }
+        [Fact]
+        public void Add_WithValidDto_InvokeRepositoryAddMethodOnce()
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var dto = new AddUserDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", IsMale = true, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
+
+            var user = new User
+            {
+                Name = "James",
+                Surname = "Wiliams",
+                Email = "wiliams@gmail.com",
+                IsMale = true,
+                DateOfBirth = DateOnly.Parse("01.01.1990"),
+                PasswordHash = "123XYZ"
+            };
+
+            _mockMapper.Setup(x => x.Map<User>(dto)).Returns(user);
+
+            accountService.Add(dto);
+
+            _mockRepository.Verify(x => x.Add(user), Times.Once);
+        }
+        [Fact]
+        public void Get_WithoutUsers_ReturnsEmptyList()
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var users = new List<User>();
+            var usersDto = new List<GetUserDto>();
+
+            _mockRepository.Setup(x => x.Get()).Returns(users);
+            _mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
+
+            var expectedResult = new List<GetUserDto>();
+            var result = accountService.Get();
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void Get_WithUsers_ReturnsUsersDtoList()
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var users = new List<User>()
+            {
+                new User()
+                {
+                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", IsMale = true, PasswordHash = "123XYZ", DateOfBirth = DateOnly.Parse("01.01.1990")
+                },
+                new User()
+                {
+                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", IsMale = false,
+                    PasswordHash = "ABC123", DateOfBirth = DateOnly.Parse("02.03.1994")
+                }
+            };
+
+            var usersDto = new List<GetUserDto>()
+            {
+                new GetUserDto()
+                {
+                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", IsMale = true, DateOfBirth = DateOnly.Parse("01.01.1990")
+                },
+                new GetUserDto()
+                {
+                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", IsMale = false,
+                    DateOfBirth = DateOnly.Parse("02.03.1994")
+                }
+            };
+
+            _mockRepository.Setup(x => x.Get()).Returns(users);
+            _mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
+
+            var expectedResult = usersDto;
+            var result = accountService.Get();
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Fact]
+        public void GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
+        {
+            //TO DO
+
+            var authenticationSettings = new AuthenticationSettings()
+            {
+                ExpireDays = 1,
+                JwtKey = "TestKey TestKey TestKey TestKey TestKey",
+                JwtIssuer = "Test Issuer"
+            };
+
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, authenticationSettings);
+
+            var dto = new LoginDto { Email = "jamesbrown@gmail.com", Password = "James123" };
+
+            var user = new User()
+            {
+                Id = 1,
+                Email = "jamesbrown@gmail.com",
+                Name = "James",
+                Surname = "Brown",
+                IsMale = true,
+                PasswordHash = "123XYZ",
+                DateOfBirth = DateOnly.Parse("01.01.1990")
+            };
+
+            _mockRepository.Setup(x => x.Get(dto.Email)).Returns(user);
+            _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.Password)).Returns(PasswordVerificationResult.Success);
+
+            var token = accountService.GenerateJwt(dto);
+            token.Should().NotBeNullOrEmpty();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(100)]
+        [InlineData(999)]
+        public void Get_Id_WithValidId_ShouldInvokeMappingToGetUserDtoOnce(int id)
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var user = new User();
+            var userDto = new GetUserDto();
+
+            _mockRepository.Setup(x => x.Get(id)).Returns(user);
+            _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
+
+            accountService.Get(id);
+
+            _mockMapper.Verify(x => x.Map<GetUserDto>(user), Times.Once);
+        }
+
+        [Theory]
+        [InlineData("james@gmail.com")]
+        [InlineData("James123@wp.pl")]
+        [InlineData("RANDOMEMAIL91@onet.pl")]
+        public void Get_Email_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var user = new User();
+            var userDto = new GetUserDto();
+
+            _mockRepository.Setup(x => x.Get(email)).Returns(user);
+            _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
+
+            accountService.Get(email);
+
+            _mockMapper.Verify(x => x.Map<GetUserDto>(user), Times.Once);
+        }
+        [Theory]
+        [InlineData(1)]
+        [InlineData(30)]
+        [InlineData(767)]
+        [InlineData(1000)]
+        public void Remove_WithValidId_ShoudInvokeRemoveFromRepositoryOnce(int id)
+        {
+            var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+
+            var user = new User();
+            var userDto = new GetUserDto();
+
+            _mockRepository.Setup(x => x.Get(id)).Returns(user);
+            _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
+
+            accountService.Remove(id);
+
+            _mockRepository.Verify(x => x.Remove(user), Times.Once);
+        }
+    }
+}
