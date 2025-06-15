@@ -1,0 +1,79 @@
+﻿using Microsoft.AspNetCore.Identity;
+using SportReserveDatabase.Entities;
+using SportReserveServer.Interfaces;
+using SportReserveServer.Interfaces.Aggregates;
+using SportReserveServer.Interfaces.Base;
+using SportReserveServer.Models;
+
+namespace SportReserveServer.CompositionRoot
+{
+    public class UserAggregateValidator : IUserAggregateValidator
+    {
+        private readonly IEmailValidator _emailValidator;
+        private readonly IEntityValidator<User> _entityValidator;
+        private readonly IValidatorInput<AddUserDto> _inputValidator;
+        private readonly IUserValidator _userValidator;
+        private readonly ILoginValidator _loginValidator;
+        private readonly IValidatorId _validatorId;
+
+        public UserAggregateValidator(IEmailValidator emailValidator, IEntityValidator<User> entityValidator, IValidatorInput<AddUserDto> inputValidator, IUserValidator userValidator, ILoginValidator loginValidator, IValidatorId validatorId)
+        {
+            _emailValidator = emailValidator;
+            _entityValidator = entityValidator;
+            _inputValidator = inputValidator;
+            _userValidator = userValidator;
+            _loginValidator = loginValidator;
+            _validatorId = validatorId;
+        }
+
+        public void ThrowIfDtoIsNull(AddUserDto? dto)
+        {
+            _inputValidator.ThrowIfDtoIsNull(dto);
+        }
+
+        public void ThrowIfEntityExist(User? user)
+        {
+            _entityValidator.ThrowIfEntityExist(user);
+        }
+
+        public void ThrowIfEntityIsNull(User? user)
+        {
+            _entityValidator.ThrowIfEntityIsNull(user);
+        }
+
+        public void ThrowIfInvalidLogin(PasswordVerificationResult result)
+        {
+            _loginValidator.ThrowIfInvalidLogin(result);
+        }
+
+        public void ThrowIfPasswordsDoNotMatch(string password, string repeatPassword)
+        {
+            _loginValidator.ThrowIfPasswordsDoNotMatch(password, repeatPassword);
+        }
+
+        public void ThrowIfUserNotFound(User? user)
+        {
+            _loginValidator.ThrowIfUserNotFound(user);
+        }
+
+        public void ValidateEmail(string email)
+        {
+            _emailValidator.ValidateEmail(email);
+        }
+
+        public void ValidateId(int id)
+        {
+            _validatorId.ValidateId(id);
+        }
+
+        public void ValidatePassword(PasswordVerificationResult result)
+        {
+            _loginValidator.ValidatePassword(result);
+        }
+
+        public void ValidateUser(AddUserDto? user)
+        {
+            _userValidator.ValidateUser(user);
+        }
+    }
+}
