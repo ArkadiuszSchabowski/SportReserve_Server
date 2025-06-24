@@ -141,7 +141,7 @@ namespace SportReserveServerUnitTests.Validators
         }
 
         [Theory]
-        [InlineData("cat", "cat")]
+        [InlineData("book", "book")]
         [InlineData("", "")]
         [InlineData("AB", "AB")]
         [InlineData("66", "66")]
@@ -154,7 +154,7 @@ namespace SportReserveServerUnitTests.Validators
 
             var action = () => userValidator.ValidateUser(dto);
 
-            action.Should().Throw<BadRequestException>().WithMessage("Password must be between 3 and 25 characters.");
+            action.Should().Throw<BadRequestException>().WithMessage("Password must be between 5 and 25 characters.");
         }
 
         [Fact]

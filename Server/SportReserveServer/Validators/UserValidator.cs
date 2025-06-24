@@ -60,7 +60,7 @@ namespace SportReserveServer.Validators
 
             if((user.Password.Length < 5 || user.RepeatPassword.Length < 5) || (user.Password.Length > 25 || user.RepeatPassword.Length > 25))
             {
-                throw new BadRequestException("Password must be between 3 and 25 characters.");
+                throw new BadRequestException("Password must be between 5 and 25 characters.");
             }
 
             if (user.IsMale == null)
