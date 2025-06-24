@@ -2,6 +2,6 @@
 {
     public interface IRemoveService
     {
-        void Remove(int id);
+        Task Remove(int id);
     }
 }
