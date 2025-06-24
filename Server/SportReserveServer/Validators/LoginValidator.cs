@@ -11,7 +11,7 @@ namespace SportReserveServer.Validators
         {
             if (user == null)
             {
-                throw new BadRequestException("Błędne dane logowania!");
+                throw new BadRequestException("Incorrect login details.");
             }
         }
 
@@ -19,14 +19,14 @@ namespace SportReserveServer.Validators
         {
             if (password == PasswordVerificationResult.Failed)
             {
-                throw new BadRequestException("Błędne dane logowania!");
+                throw new BadRequestException("Incorrect login details.");
             }
         }
         public void ThrowIfPasswordsDoNotMatch(string password, string repeatPassword)
         {
             if (password != repeatPassword)
             {
-                throw new BadRequestException("Wprowadzone hasła są różne!");
+                throw new BadRequestException("Passwords do not match.");
             }
         }
 
@@ -34,10 +34,9 @@ namespace SportReserveServer.Validators
         {
             if (result == PasswordVerificationResult.Failed)
             {
-                throw new BadRequestException("Wprowadzono niepoprawne hasło!");
+                throw new BadRequestException("Invalid password.");
             }
         }
-
     }
 }
 
