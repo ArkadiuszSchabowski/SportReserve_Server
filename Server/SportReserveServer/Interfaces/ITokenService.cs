@@ -4,6 +4,6 @@ namespace SportReserveServer.Interfaces
 {
     public interface ITokenService
     {
-        string GenerateJwt(LoginDto dto);
+        Task<string> GenerateJwt(LoginDto dto);
     }
 }

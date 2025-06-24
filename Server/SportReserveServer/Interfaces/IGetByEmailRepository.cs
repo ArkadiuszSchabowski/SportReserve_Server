@@ -4,6 +4,6 @@ namespace SportReserveServer.Interfaces
 {
     public interface IGetByEmailRepository
     {
-        User? Get(string email);
+        Task<User?> Get(string email);
     }
 }

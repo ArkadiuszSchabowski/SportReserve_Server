@@ -27,7 +27,7 @@ namespace SportReserveServerUnitTests.Services
             _mockMapper = new Mock<IMapper>();
         }
         [Fact]
-        public void Add_WithValidDto_InvokeRepositoryAddMethodOnce()
+        public async Task Add_WithValidDto_InvokeRepositoryAddMethodOnce()
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
@@ -45,29 +45,29 @@ namespace SportReserveServerUnitTests.Services
 
             _mockMapper.Setup(x => x.Map<User>(dto)).Returns(user);
 
-            accountService.Add(dto);
+            await accountService.Add(dto);
 
             _mockRepository.Verify(x => x.Add(user), Times.Once);
         }
         [Fact]
-        public void Get_WithoutUsers_ReturnsEmptyList()
+        public async Task Get_WithoutUsers_ReturnsEmptyList()
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var users = new List<User>();
             var usersDto = new List<GetUserDto>();
 
-            _mockRepository.Setup(x => x.Get()).Returns(users);
+            _mockRepository.Setup(x => x.Get()).ReturnsAsync(users);
             _mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
 
             var expectedResult = new List<GetUserDto>();
-            var result = accountService.Get();
+            var result = await accountService.Get();
 
             result.Should().BeEquivalentTo(expectedResult);
         }
 
         [Fact]
-        public void Get_WithUsers_ReturnsUsersDtoList()
+        public async Task Get_WithUsers_ReturnsUsersDtoList()
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
@@ -97,19 +97,18 @@ namespace SportReserveServerUnitTests.Services
                 }
             };
 
-            _mockRepository.Setup(x => x.Get()).Returns(users);
+            _mockRepository.Setup(x => x.Get()).ReturnsAsync(users);
             _mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
 
             var expectedResult = usersDto;
-            var result = accountService.Get();
+            var result = await accountService.Get();
 
             result.Should().BeEquivalentTo(expectedResult);
         }
 
         [Fact]
-        public void GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
+        public async Task GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
         {
-            //TO DO
 
             var authenticationSettings = new AuthenticationSettings()
             {
@@ -133,10 +132,10 @@ namespace SportReserveServerUnitTests.Services
                 DateOfBirth = DateOnly.Parse("01.01.1990")
             };
 
-            _mockRepository.Setup(x => x.Get(dto.Email)).Returns(user);
+            _mockRepository.Setup(x => x.Get(dto.Email)).ReturnsAsync(user);
             _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.Password)).Returns(PasswordVerificationResult.Success);
 
-            var token = accountService.GenerateJwt(dto);
+            var token = await accountService.GenerateJwt(dto);
             token.Should().NotBeNullOrEmpty();
         }
 
@@ -144,17 +143,17 @@ namespace SportReserveServerUnitTests.Services
         [InlineData(1)]
         [InlineData(100)]
         [InlineData(999)]
-        public void Get_Id_WithValidId_ShouldInvokeMappingToGetUserDtoOnce(int id)
+        public async Task Get_Id_WithValidId_ShouldInvokeMappingToGetUserDtoOnce(int id)
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();
 
-            _mockRepository.Setup(x => x.Get(id)).Returns(user);
+            _mockRepository.Setup(x => x.Get(id)).ReturnsAsync(user);
             _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
 
-            accountService.Get(id);
+            await accountService.Get(id);
 
             _mockMapper.Verify(x => x.Map<GetUserDto>(user), Times.Once);
         }
@@ -163,17 +162,17 @@ namespace SportReserveServerUnitTests.Services
         [InlineData("james@gmail.com")]
         [InlineData("James123@wp.pl")]
         [InlineData("RANDOMEMAIL91@onet.pl")]
-        public void Get_Email_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
+        public async Task Get_Email_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();
 
-            _mockRepository.Setup(x => x.Get(email)).Returns(user);
+            _mockRepository.Setup(x => x.Get(email)).ReturnsAsync(user);
             _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
 
-            accountService.Get(email);
+            await accountService.Get(email);
 
             _mockMapper.Verify(x => x.Map<GetUserDto>(user), Times.Once);
         }
@@ -182,17 +181,17 @@ namespace SportReserveServerUnitTests.Services
         [InlineData(30)]
         [InlineData(767)]
         [InlineData(1000)]
-        public void Remove_WithValidId_ShoudInvokeRemoveFromRepositoryOnce(int id)
+        public async Task Remove_WithValidId_ShoudInvokeRemoveFromRepositoryOnce(int id)
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();
 
-            _mockRepository.Setup(x => x.Get(id)).Returns(user);
+            _mockRepository.Setup(x => x.Get(id)).ReturnsAsync(user);
             _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
 
-            accountService.Remove(id);
+            await accountService.Remove(id);
 
             _mockRepository.Verify(x => x.Remove(user), Times.Once);
         }

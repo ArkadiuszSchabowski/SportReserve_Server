@@ -16,44 +16,44 @@ namespace SportReserveServer.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<GetUserDto>> Get()
+        public async Task<ActionResult<List<GetUserDto>>> Get()
         {
-            return _service.Get();
+            var users = await _service.Get();
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<GetUserDto> Get([FromRoute] int id)
+        public async Task<ActionResult<GetUserDto>> Get([FromRoute] int id)
         {
-            return _service.Get(id);
+            var user = await _service.Get(id);
+            return Ok(user);
         }
 
         [HttpGet("email")]
-        public ActionResult<GetUserDto> Get([FromQuery] string email)
+        public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
-            return _service.Get(email);
+            var user = await _service.Get(email);
+            return Ok(user);
         }
 
         [HttpPost]
-        public ActionResult Add([FromBody] AddUserDto dto)
+        public async Task<ActionResult> Add([FromBody] AddUserDto dto)
         {
-            _service.Add(dto);
-
+            await _service.Add(dto);
             return Ok();
         }
 
         [HttpPost("login")]
-        public ActionResult<string> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
         {
-            var token = _service.GenerateJwt(dto);
-
+            var token = await _service.GenerateJwt(dto);
             return Ok(token);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Remove([FromRoute] int id)
+        public async Task<ActionResult> Remove([FromRoute] int id)
         {
-            _service.Remove(id);
-
+            await _service.Remove(id);
             return NoContent();
         }
     }

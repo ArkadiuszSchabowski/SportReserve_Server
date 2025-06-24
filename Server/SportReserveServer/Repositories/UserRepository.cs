@@ -1,4 +1,5 @@
-﻿using SportReserveDatabase;
+﻿using Microsoft.EntityFrameworkCore;
+using SportReserveDatabase;
 using SportReserveDatabase.Entities;
 using SportReserveServer.Interfaces.Aggregates;
 
@@ -12,31 +13,31 @@ namespace SportReserveServer.Repositories
         {
             _context = context;
         }
-        public void Add(User user)
+        public async Task Add(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public List<User> Get()
+        public async Task<List<User>> Get()
         {
-            return _context.Users.ToList();
+            return await _context.Users.ToListAsync();
         }
 
-        public User? Get(int id)
+        public async Task<User?> Get(int id)
         {
-            return _context.Users.FirstOrDefault(x => x.Id == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public User? Get(string email)
+        public async Task<User?> Get(string email)
         {
-            return _context.Users.FirstOrDefault(x => x.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public void Remove(User user)
+        public async Task Remove(User user)
         {
             _context.Users.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

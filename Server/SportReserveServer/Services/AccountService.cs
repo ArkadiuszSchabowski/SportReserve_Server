@@ -26,11 +26,11 @@ namespace SportReserveServer.Services
             _mapper = mapper;
             _authenticationSettings = authenticationSettings;
         }
-        public void Add(AddUserDto dto)
+        public async Task Add(AddUserDto dto)
         {
             _validator.ValidateUser(dto);
 
-            User? user = _repository.Get(dto.Email);
+            User? user = await _repository.Get(dto.Email);
 
             _validator.ThrowIfEntityExist(user);
 
@@ -40,12 +40,12 @@ namespace SportReserveServer.Services
 
             newUser.PasswordHash = passwordHash;
 
-            _repository.Add(newUser);
+            await _repository.Add(newUser);
         }
 
-        public string GenerateJwt(LoginDto dto)
+        public async Task<string> GenerateJwt(LoginDto dto)
         {
-            var user = _repository.Get(dto.Email);
+            var user = await _repository.Get(dto.Email);
 
             _validator.ThrowIfUserNotFound(user);
 
@@ -72,20 +72,20 @@ namespace SportReserveServer.Services
 
             return tokenHandler.WriteToken(token);
         }
-        public List<GetUserDto> Get()
+        public async Task<List<GetUserDto>> Get()
         {
-            var users = _repository.Get();
+            var users = await _repository.Get();
 
             var dto = _mapper.Map<List<GetUserDto>>(users);
 
             return dto;
         }
 
-        public GetUserDto Get(int id)
+        public async Task<GetUserDto> Get(int id)
         {
             _validator.ValidateId(id);
 
-            var user = _repository.Get(id);
+            var user = await _repository.Get(id);
 
             _validator.ThrowIfEntityIsNull(user);
 
@@ -95,11 +95,11 @@ namespace SportReserveServer.Services
         }
 
 
-        public GetUserDto Get(string email)
+        public async Task<GetUserDto> Get(string email)
         {
             _validator.ValidateEmail(email);
 
-            var user = _repository.Get(email);
+            var user = await _repository.Get(email);
 
             _validator.ThrowIfEntityIsNull(user);
 
@@ -108,15 +108,15 @@ namespace SportReserveServer.Services
             return dto;
         }
 
-        public void Remove(int id)
+        public async Task Remove(int id)
         {
             _validator.ValidateId(id);
 
-            var user = _repository.Get(id);
+            var user = await _repository.Get(id);
 
             _validator.ThrowIfEntityIsNull(user!);
 
-            _repository.Remove(user!);
+            await _repository.Remove(user!);
         }
     }
 }
