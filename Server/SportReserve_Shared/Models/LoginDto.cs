@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer.Models
+﻿namespace SportReserve_Shared.Models
 {
     public class LoginDto
     {

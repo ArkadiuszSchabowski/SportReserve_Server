@@ -1,8 +1,8 @@
-﻿using SportReserveDatabase.Entities;
+﻿using SportReserve_Shared.Models;
+using SportReserveDatabase.Entities;
 using SportReserveServer.Exceptions;
 using SportReserveServer.Interfaces;
 using SportReserveServer.Interfaces.Base;
-using SportReserveServer.Models;
 
 namespace SportReserveServer.Validators
 {
@@ -63,7 +63,7 @@ namespace SportReserveServer.Validators
                 throw new BadRequestException("Password must be between 5 and 25 characters.");
             }
 
-            if (user.IsMale == null)
+            if (user.Gender == null)
             {
                 throw new BadRequestException("You must choose a gender.");
             }

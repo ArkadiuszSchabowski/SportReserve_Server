@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using SportReserve_Shared.Models;
 using SportReserveDatabase;
 using SportReserveDatabase.Entities;
 using SportReserveServer;
@@ -8,16 +10,22 @@ using SportReserveServer.Interfaces;
 using SportReserveServer.Interfaces.Aggregates;
 using SportReserveServer.Interfaces.Base;
 using SportReserveServer.Middleware;
-using SportReserveServer.Models;
 using SportReserveServer.Repositories;
 using SportReserveServer.Services;
 using SportReserveServer.Validators;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 var authenticationSettings = new AuthenticationSettings();
 

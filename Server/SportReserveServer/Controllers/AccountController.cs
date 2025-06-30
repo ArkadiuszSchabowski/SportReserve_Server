@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportReserve_Shared.Models;
 using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Models;
 
 namespace SportReserveServer.Controllers
 {
@@ -22,22 +22,22 @@ namespace SportReserveServer.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
         public async Task<ActionResult<GetUserDto>> Get([FromRoute] int id)
         {
             var user = await _service.Get(id);
             return Ok(user);
         }
 
-        [HttpGet("email")]
+        [HttpGet("by-email/{email}")]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
             var user = await _service.Get(email);
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Add([FromBody] AddUserDto dto)
+        [HttpPost("register")]
+        public async Task<ActionResult> Register([FromBody] AddUserDto dto)
         {
             await _service.Add(dto);
             return Ok();

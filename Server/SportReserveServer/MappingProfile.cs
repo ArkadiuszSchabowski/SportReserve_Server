@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using SportReserve_Shared.Models;
 using SportReserveDatabase.Entities;
-using SportReserveServer.Models;
 
 namespace SportReserveServer
 {
