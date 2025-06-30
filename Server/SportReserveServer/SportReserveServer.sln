@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserveDatabase", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserveServerUnitTests", "..\SportReserveUnitTests\SportReserveServerUnitTests.csproj", "{90EAD1C8-5B96-4020-9D05-24CBCAA7FCFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Shared", "..\SportReserve_Shared\SportReserve_Shared.csproj", "{024C8644-2473-49C8-A269-26D0D59EF0A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{90EAD1C8-5B96-4020-9D05-24CBCAA7FCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90EAD1C8-5B96-4020-9D05-24CBCAA7FCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90EAD1C8-5B96-4020-9D05-24CBCAA7FCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024C8644-2473-49C8-A269-26D0D59EF0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024C8644-2473-49C8-A269-26D0D59EF0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024C8644-2473-49C8-A269-26D0D59EF0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024C8644-2473-49C8-A269-26D0D59EF0A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

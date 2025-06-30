@@ -1,4 +1,6 @@
-﻿namespace SportReserveServer.Models
+﻿using SportReserve_Shared.Enums;
+
+namespace SportReserve_Shared.Models
 {
     public class GetUserDto
     {
@@ -6,7 +8,7 @@
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
-        public bool? IsMale { get; set; }
+        public Gender Gender { get; set; }
         public DateOnly DateOfBirth { get; set; }
     }
 }

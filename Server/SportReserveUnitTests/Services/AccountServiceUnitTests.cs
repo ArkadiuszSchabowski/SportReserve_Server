@@ -4,10 +4,11 @@ using AutoMapper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using SportReserve_Shared.Enums;
+using SportReserve_Shared.Models;
 using SportReserveDatabase.Entities;
 using SportReserveServer;
 using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Models;
 using SportReserveServer.Services;
 
 namespace SportReserveServerUnitTests.Services
@@ -31,14 +32,14 @@ namespace SportReserveServerUnitTests.Services
         {
             var accountService = new AccountService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
-            var dto = new AddUserDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", IsMale = true, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
+            var dto = new AddUserDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", Gender = Gender.Male, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
 
             var user = new User
             {
                 Name = "James",
                 Surname = "Wiliams",
                 Email = "wiliams@gmail.com",
-                IsMale = true,
+                Gender = Gender.Male,
                 DateOfBirth = DateOnly.Parse("01.01.1990"),
                 PasswordHash = "123XYZ"
             };
@@ -75,11 +76,11 @@ namespace SportReserveServerUnitTests.Services
             {
                 new User()
                 {
-                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", IsMale = true, PasswordHash = "123XYZ", DateOfBirth = DateOnly.Parse("01.01.1990")
+                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", Gender = Gender.Male, PasswordHash = "123XYZ", DateOfBirth = DateOnly.Parse("01.01.1990")
                 },
                 new User()
                 {
-                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", IsMale = false,
+                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", Gender = Gender.Female,
                     PasswordHash = "ABC123", DateOfBirth = DateOnly.Parse("02.03.1994")
                 }
             };
@@ -88,11 +89,11 @@ namespace SportReserveServerUnitTests.Services
             {
                 new GetUserDto()
                 {
-                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", IsMale = true, DateOfBirth = DateOnly.Parse("01.01.1990")
+                    Id = 1, Email = "jamesbrown@gmail.com", Name = "James", Surname = "Brown", Gender = Gender.Male, DateOfBirth = DateOnly.Parse("01.01.1990")
                 },
                 new GetUserDto()
                 {
-                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", IsMale = false,
+                    Id = 2, Email = "kate99@onet.pl", Name = "Kate", Surname = "Brown", Gender = Gender.Female,
                     DateOfBirth = DateOnly.Parse("02.03.1994")
                 }
             };
@@ -127,7 +128,7 @@ namespace SportReserveServerUnitTests.Services
                 Email = "jamesbrown@gmail.com",
                 Name = "James",
                 Surname = "Brown",
-                IsMale = true,
+                Gender = Gender.Male,
                 PasswordHash = "123XYZ",
                 DateOfBirth = DateOnly.Parse("01.01.1990")
             };

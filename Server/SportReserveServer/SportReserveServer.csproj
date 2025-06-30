@@ -27,6 +27,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\SportReserveDatabase\SportReserveDatabase.csproj" />
+		<ProjectReference Include="..\SportReserve_Shared\SportReserve_Shared.csproj" />
 	</ItemGroup>
 
 </Project>

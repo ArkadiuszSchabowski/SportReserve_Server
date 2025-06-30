@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportReserve_Shared.Models;
 using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Models;
 
 namespace SportReserveServer.Controllers
 {

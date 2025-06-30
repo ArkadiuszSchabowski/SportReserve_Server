@@ -1,4 +1,4 @@
-﻿using SportReserveServer.Models;
+﻿using SportReserve_Shared.Models;
 
 namespace SportReserveServer.Interfaces
 {

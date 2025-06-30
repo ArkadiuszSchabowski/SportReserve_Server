@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SportReserve_Shared.Models;
 using SportReserveDatabase.Entities;
 using SportReserveServer.Interfaces;
 using SportReserveServer.Interfaces.Aggregates;
 using SportReserveServer.Interfaces.Base;
-using SportReserveServer.Models;
 
 namespace SportReserveServer.CompositionRoot
 {
