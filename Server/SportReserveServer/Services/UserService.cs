@@ -10,7 +10,7 @@ using System.Text;
 
 namespace SportReserveServer.Services
 {
-    public class AccountService : IAccountAggregateService
+    public class UserService : IUserAggregateService
     {
         private readonly IUserAggregateRepository _repository;
         private readonly IUserAggregateValidator _validator;
@@ -18,7 +18,7 @@ namespace SportReserveServer.Services
         private readonly IMapper _mapper;
         private readonly AuthenticationSettings _authenticationSettings;
 
-        public AccountService(IUserAggregateRepository repository, IUserAggregateValidator validator, IPasswordHasher<User> passwordHasher, IMapper mapper, AuthenticationSettings authenticationSettings)
+        public UserService(IUserAggregateRepository repository, IUserAggregateValidator validator, IPasswordHasher<User> passwordHasher, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
             _repository = repository;
             _validator = validator;
