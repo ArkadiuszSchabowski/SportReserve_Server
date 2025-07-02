@@ -57,7 +57,7 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
-builder.Services.AddScoped<IAccountAggregateService, AccountService>();
+builder.Services.AddScoped<IUserAggregateService, UserService>();
 builder.Services.AddScoped<IUserAggregateRepository, UserRepository>();
 builder.Services.AddScoped<IUserAggregateValidator, UserAggregateValidator>();
 builder.Services.AddScoped<IEntityValidator<User>, UserValidator>();
