@@ -6,11 +6,11 @@ namespace SportReserveServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IAccountAggregateService _service;
+        private readonly IUserAggregateService _service;
 
-        public AccountController(IAccountAggregateService service)
+        public UserController(IUserAggregateService service)
         {
             _service = service;
         }
