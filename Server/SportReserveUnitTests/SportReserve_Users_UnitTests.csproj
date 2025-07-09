@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SportReserveServer\SportReserveServer.csproj" />
+    <ProjectReference Include="..\SportReserveServer\SportReserve_Users.csproj" />
     <ProjectReference Include="..\SportReserve_Shared\SportReserve_Shared.csproj" />
   </ItemGroup>
 
