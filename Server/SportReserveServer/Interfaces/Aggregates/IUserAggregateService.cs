@@ -3,7 +3,7 @@
 namespace SportReserveServer.Interfaces.Aggregates
 {
     public interface IUserAggregateService :
-    IAddService<AddUserDto>,
+    IAddService<RegisterDto>,
     IGetService<GetUserDto>,
     IGetByEmail,
     IRemoveService,

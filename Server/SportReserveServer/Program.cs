@@ -18,6 +18,16 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("UserPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 
 builder.Services
@@ -61,7 +71,7 @@ builder.Services.AddScoped<IUserAggregateService, UserService>();
 builder.Services.AddScoped<IUserAggregateRepository, UserRepository>();
 builder.Services.AddScoped<IUserAggregateValidator, UserAggregateValidator>();
 builder.Services.AddScoped<IEntityValidator<User>, UserValidator>();
-builder.Services.AddScoped<IValidatorInput<AddUserDto>, UserValidator>();
+builder.Services.AddScoped<IValidatorInput<RegisterDto>, UserValidator>();
 
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();
@@ -69,6 +79,8 @@ builder.Services.AddScoped<IUserValidator, UserValidator>();
 builder.Services.AddScoped<IValidatorId,  ValidatorId>();
 
 var app = builder.Build();
+
+app.UseCors("UserPolicy");
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

@@ -22,14 +22,14 @@ namespace SportReserveServer.Controllers
             return Ok(users);
         }
 
-        [HttpGet("by-id/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GetUserDto>> Get([FromRoute] int id)
         {
             var user = await _service.Get(id);
             return Ok(user);
         }
 
-        [HttpGet("by-email/{email}")]
+        [HttpGet("email")]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
             var user = await _service.Get(email);
@@ -37,7 +37,7 @@ namespace SportReserveServer.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] AddUserDto dto)
+        public async Task<ActionResult> Register([FromBody] RegisterDto dto)
         {
             await _service.Add(dto);
             return Ok();
