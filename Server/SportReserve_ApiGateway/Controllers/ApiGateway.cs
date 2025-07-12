@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+using SportReserve_ApiGateway.Interfaces;
 using SportReserve_Shared.Models;
 using System.Text.Json;
 
@@ -11,10 +12,14 @@ namespace SportReserve_ApiGateway.Controllers
     public class ApiGatewayController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpResponseHelper _httpResponseHelper;
+        private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly JsonSerializerOptions _jsonOptions;
-        public ApiGatewayController(IHttpClientFactory httpClientFactory, IOptions<JsonOptions> jsonOptions)
+        public ApiGatewayController(IHttpClientFactory httpClientFactory, IHttpResponseHelper httpResponseHelper, IHttpResponseValidator httpResponseValidator, IOptions<JsonOptions> jsonOptions)
         {
             _httpClientFactory = httpClientFactory;
+            _httpResponseHelper = httpResponseHelper;
+            _httpResponseValidator = httpResponseValidator;
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
 
@@ -25,19 +30,18 @@ namespace SportReserve_ApiGateway.Controllers
 
             var response = await client.GetAsync("");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
 
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
             }
 
-            var stringJson = await response.Content.ReadAsStringAsync();
-
-            List<GetUserDto>? users = JsonSerializer.Deserialize<List<GetUserDto>>(stringJson, _jsonOptions);
+            List<GetUserDto>? users = JsonSerializer.Deserialize<List<GetUserDto>>(responseBody, _jsonOptions);
 
             return Ok(users);
         }
@@ -49,83 +53,20 @@ namespace SportReserve_ApiGateway.Controllers
 
             var response = await client.GetAsync($"{id}");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
 
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
             }
 
-            var stringJson = await response.Content.ReadAsStringAsync();
-
-            GetUserDto? user = JsonSerializer.Deserialize<GetUserDto>(stringJson, _jsonOptions);
+            GetUserDto? user = JsonSerializer.Deserialize<GetUserDto>(responseBody, _jsonOptions);
 
             return Ok(user);
-        }
-
-        [HttpDelete("users/{id}")]
-        public async Task<ActionResult<string>> Remove([FromRoute] int id)
-        {
-            var client = _httpClientFactory.CreateClient("UserService");
-
-            var response = await client.DeleteAsync($"{id}");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
-            }
-
-            return NoContent();
-        }
-
-        [HttpPost("users/register")]
-        public async Task<ActionResult> Register([FromBody] RegisterDto dto)
-        {
-            var client = _httpClientFactory.CreateClient("UserService");
-
-            var response = await client.PostAsJsonAsync("register", dto);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
-            }
-
-            return Ok();
-        }
-
-        [HttpPost("users/login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
-        {
-            var client = _httpClientFactory.CreateClient("UserService");
-
-            var response = await client.PostAsJsonAsync("login", dto);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
-            }
-
-            var token = await response.Content.ReadAsStringAsync();
-
-            return Ok(token);
         }
 
         [HttpGet("users/by-email")]
@@ -142,19 +83,83 @@ namespace SportReserve_ApiGateway.Controllers
 
             var response = await client.GetAsync(url);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
 
-                return StatusCode((int)response.StatusCode, new
-                {
-                    details = errorContent
-                });
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
             }
 
             var result = await response.Content.ReadFromJsonAsync<GetUserDto>(_jsonOptions);
 
             return Ok(result);
+        }
+
+        [HttpPost("users/register")]
+        public async Task<ActionResult> Register([FromBody] RegisterDto dto)
+        {
+            var client = _httpClientFactory.CreateClient("UserService");
+
+            var response = await client.PostAsJsonAsync("register", dto);
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return Ok();
+        }
+
+        [HttpPost("users/login")]
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        {
+            var client = _httpClientFactory.CreateClient("UserService");
+
+            var response = await client.PostAsJsonAsync("login", dto);
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return Ok(responseBody);
+        }
+
+        [HttpDelete("users/{id}")]
+        public async Task<ActionResult<string>> Remove([FromRoute] int id)
+        {
+            var client = _httpClientFactory.CreateClient("UserService");
+
+            var response = await client.DeleteAsync($"{id}");
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return NoContent();
         }
     }
 }
