@@ -1,0 +1,35 @@
+name: Server_ApiGateway - Pipeline
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - 'Server/SportReserve_ApiGateway/**'
+  pull_request:
+    branches: ["main"]
+    paths:
+      - 'Server/SportReserve_ApiGateway/**'
+
+jobs:
+  build:
+    runs-on: windows-latest 
+    
+    steps:
+      - uses: actions/checkout@v3
+          
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./Server/SportReserve_ApiGateway
+
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: ./Server/SportReserve_ApiGateway
+
+      - name: Test
+        run: dotnet test --filter Category=Unit
+        working-directory: ./Server/SportReserve_ApiGateway
