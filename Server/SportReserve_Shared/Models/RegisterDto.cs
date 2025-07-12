@@ -2,7 +2,7 @@
 
 namespace SportReserve_Shared.Models
 {
-    public class AddUserDto
+    public class RegisterDto
     {
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
