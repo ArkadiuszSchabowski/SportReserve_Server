@@ -1,6 +1,6 @@
 ﻿using SportReserve_Shared.Enums;
 
-namespace SportReserve_Shared.Models
+namespace SportReserve_Shared.Models.User
 {
     public class GetUserDto
     {
