@@ -23,13 +23,13 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore
-        working-directory: ./Server/SportReserve_Users/SportReserve_Users.csproj
+        run: dotnet restore SportReserve_Users.csproj
+        working-directory: ./Server/SportReserve_Users
 
       - name: Build
-        run: dotnet build --no-restore
-        working-directory: ./Server/SportReserve_Users/SportReserve_Users.csproj
+        run: dotnet build SportReserve_Users.csproj --no-restore
+        working-directory: ./Server/SportReserve_Users
 
       - name: Test
-        run: dotnet test --filter Category=Unit
-        working-directory: ./Server/SportReserve_Users/SportReserve_Users.csproj
+        run: dotnet test SportReserve_Users.csproj --filter Category=Unit
+        working-directory: ./Server/SportReserve_Users
