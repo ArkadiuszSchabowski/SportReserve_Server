@@ -26,7 +26,7 @@ namespace SportReserveServer.Services
             _mapper = mapper;
             _authenticationSettings = authenticationSettings;
         }
-        public async Task Add(AddUserDto dto)
+        public async Task Add(RegisterDto dto)
         {
             _validator.ValidateUser(dto);
 

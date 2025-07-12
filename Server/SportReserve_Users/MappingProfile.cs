@@ -9,7 +9,7 @@ namespace SportReserveServer
         public MappingProfile()
         {
             CreateMap<User, GetUserDto>();
-            CreateMap<AddUserDto, User>();
+            CreateMap<RegisterDto, User>();
         }
     }
 }

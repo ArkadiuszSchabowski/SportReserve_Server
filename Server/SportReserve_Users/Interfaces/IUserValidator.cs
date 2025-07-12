@@ -4,6 +4,6 @@ namespace SportReserveServer.Interfaces
 {
     public interface IUserValidator
     {
-        void ValidateUser(AddUserDto? user);
+        void ValidateUser(RegisterDto? user);
     }
 }

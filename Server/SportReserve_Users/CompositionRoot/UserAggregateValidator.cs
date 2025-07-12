@@ -11,12 +11,12 @@ namespace SportReserveServer.CompositionRoot
     {
         private readonly IEmailValidator _emailValidator;
         private readonly IEntityValidator<User> _entityValidator;
-        private readonly IValidatorInput<AddUserDto> _inputValidator;
+        private readonly IValidatorInput<RegisterDto> _inputValidator;
         private readonly IUserValidator _userValidator;
         private readonly ILoginValidator _loginValidator;
         private readonly IValidatorId _validatorId;
 
-        public UserAggregateValidator(IEmailValidator emailValidator, IEntityValidator<User> entityValidator, IValidatorInput<AddUserDto> inputValidator, IUserValidator userValidator, ILoginValidator loginValidator, IValidatorId validatorId)
+        public UserAggregateValidator(IEmailValidator emailValidator, IEntityValidator<User> entityValidator, IValidatorInput<RegisterDto> inputValidator, IUserValidator userValidator, ILoginValidator loginValidator, IValidatorId validatorId)
         {
             _emailValidator = emailValidator;
             _entityValidator = entityValidator;
@@ -26,7 +26,7 @@ namespace SportReserveServer.CompositionRoot
             _validatorId = validatorId;
         }
 
-        public void ThrowIfDtoIsNull(AddUserDto? dto)
+        public void ThrowIfDtoIsNull(RegisterDto? dto)
         {
             _inputValidator.ThrowIfDtoIsNull(dto);
         }
@@ -71,7 +71,7 @@ namespace SportReserveServer.CompositionRoot
             _loginValidator.ValidatePassword(result);
         }
 
-        public void ValidateUser(AddUserDto? user)
+        public void ValidateUser(RegisterDto? user)
         {
             _userValidator.ValidateUser(user);
         }
