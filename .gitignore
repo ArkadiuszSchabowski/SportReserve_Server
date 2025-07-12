@@ -406,3 +406,4 @@ FodyWeavers.xsd
 *.sln.iml
 appsettings.json
 /Server/SportReserve_ApiGateway/appsettings.json
+/Server/SportReserve_Users/appsettings.json
