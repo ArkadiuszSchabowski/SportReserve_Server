@@ -61,7 +61,7 @@ builder.Services.AddScoped<IUserAggregateService, UserService>();
 builder.Services.AddScoped<IUserAggregateRepository, UserRepository>();
 builder.Services.AddScoped<IUserAggregateValidator, UserAggregateValidator>();
 builder.Services.AddScoped<IEntityValidator<User>, UserValidator>();
-builder.Services.AddScoped<IValidatorInput<AddUserDto>, UserValidator>();
+builder.Services.AddScoped<IValidatorInput<RegisterDto>, UserValidator>();
 
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();

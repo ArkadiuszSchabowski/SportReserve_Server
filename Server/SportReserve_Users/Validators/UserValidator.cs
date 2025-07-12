@@ -6,7 +6,7 @@ using SportReserveServer.Interfaces.Base;
 
 namespace SportReserveServer.Validators
 {
-    public class UserValidator : IEntityValidator<User>, IUserValidator, IValidatorInput<AddUserDto>
+    public class UserValidator : IEntityValidator<User>, IUserValidator, IValidatorInput<RegisterDto>
     {
         private readonly IEmailValidator _emailValidator;
 
@@ -15,7 +15,7 @@ namespace SportReserveServer.Validators
             _emailValidator = emailValidator;
         }
 
-        public void ThrowIfDtoIsNull(AddUserDto? dto)
+        public void ThrowIfDtoIsNull(RegisterDto? dto)
         {
             if (dto == null)
             {
@@ -38,7 +38,7 @@ namespace SportReserveServer.Validators
             }
         }
 
-        public void ValidateUser(AddUserDto? user)
+        public void ValidateUser(RegisterDto? user)
         {
             ThrowIfDtoIsNull(user);
             _emailValidator.ValidateEmail(user!.Email);        

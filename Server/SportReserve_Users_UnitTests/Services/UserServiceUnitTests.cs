@@ -32,7 +32,7 @@ namespace SportReserveServerUnitTests.Services
         {
             var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
-            var dto = new AddUserDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", Gender = Gender.Male, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
+            var dto = new RegisterDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", Gender = Gender.Male, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
 
             var user = new User
             {

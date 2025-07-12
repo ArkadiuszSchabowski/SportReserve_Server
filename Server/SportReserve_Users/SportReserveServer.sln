@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Users_Db", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Users_UnitTests", "..\SportReserve_Users_UnitTests\SportReserve_Users_UnitTests.csproj", "{F1729615-B7B2-28CD-852B-C3771EEA2B7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_ApiGateway", "..\SportReserve_ApiGateway\SportReserve_ApiGateway.csproj", "{8A43A4A2-03D7-296B-4ACE-E2376E5B8A2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F1729615-B7B2-28CD-852B-C3771EEA2B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1729615-B7B2-28CD-852B-C3771EEA2B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1729615-B7B2-28CD-852B-C3771EEA2B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A43A4A2-03D7-296B-4ACE-E2376E5B8A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A43A4A2-03D7-296B-4ACE-E2376E5B8A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A43A4A2-03D7-296B-4ACE-E2376E5B8A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A43A4A2-03D7-296B-4ACE-E2376E5B8A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

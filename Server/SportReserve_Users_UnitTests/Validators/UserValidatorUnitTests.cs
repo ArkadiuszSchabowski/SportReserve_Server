@@ -22,7 +22,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = null;
+            RegisterDto? dto = null;
 
             var action = () => userValidator.ThrowIfDtoIsNull(dto);
 
@@ -34,7 +34,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = "Cena", Email = "johncena123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = "Cena", Email = "johncena123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ThrowIfDtoIsNull(dto);
 
@@ -100,7 +100,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = name, Surname = "Cena", Email = "cena1000@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = name, Surname = "Cena", Email = "cena1000@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -117,7 +117,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = surname, Email = "john@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = surname, Email = "john@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -134,7 +134,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = password, RepeatPassword = repeatPassword, Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = password, RepeatPassword = repeatPassword, Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -151,7 +151,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = "Brown", Email = "johnbrown1@gmail.com", Password = password, RepeatPassword = repeatPassword, Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = "Brown", Email = "johnbrown1@gmail.com", Password = password, RepeatPassword = repeatPassword, Gender = Gender.Male, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -163,7 +163,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = null, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = null, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -180,7 +180,7 @@ namespace SportReserveServerUnitTests.Validators
 
             var date = DateOnly.Parse(dateOfBirth);
 
-            AddUserDto? dto = new AddUserDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = date };
+            RegisterDto? dto = new RegisterDto { Name = "John", Surname = "Brown", Email = "johnbrown123@gmail.com", Password = "password123", RepeatPassword = "password123", Gender = Gender.Male, DateOfBirth = date };
 
             var action = () => userValidator.ValidateUser(dto);
 
@@ -192,7 +192,7 @@ namespace SportReserveServerUnitTests.Validators
         {
             var userValidator = new UserValidator(_emailValidator.Object);
 
-            AddUserDto? dto = new AddUserDto { Name = "Kate", Surname = "Brown", Email = "kate@gmail.com", Password = "PASSWORD123", RepeatPassword = "PASSWORD123", Gender = Gender.Female, DateOfBirth = new DateOnly(1985, 1, 1) };
+            RegisterDto? dto = new RegisterDto { Name = "Kate", Surname = "Brown", Email = "kate@gmail.com", Password = "PASSWORD123", RepeatPassword = "PASSWORD123", Gender = Gender.Female, DateOfBirth = new DateOnly(1985, 1, 1) };
 
             var action = () => userValidator.ValidateUser(dto);
 

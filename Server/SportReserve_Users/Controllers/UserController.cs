@@ -37,7 +37,7 @@ namespace SportReserveServer.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] AddUserDto dto)
+        public async Task<ActionResult> Register([FromBody] RegisterDto dto)
         {
             await _service.Add(dto);
             return Ok();
