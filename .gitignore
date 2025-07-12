@@ -404,4 +404,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/Server/SportReserveServer/appsettings.json
+appsettings.json
+/Server/SportReserve_ApiGateway/appsettings.json
