@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportReserveDatabase;
+using SportReserve_Users_Db;
 using SportReserveDatabase.Entities;
 using SportReserveServer.Interfaces.Aggregates;
 
@@ -7,9 +7,9 @@ namespace SportReserveServer.Repositories
 {
     public class UserRepository : IUserAggregateRepository
     {
-        private readonly MyDbContext _context;
+        private readonly UserDbContext _context;
 
-        public UserRepository(MyDbContext context)
+        public UserRepository(UserDbContext context)
         {
             _context = context;
         }

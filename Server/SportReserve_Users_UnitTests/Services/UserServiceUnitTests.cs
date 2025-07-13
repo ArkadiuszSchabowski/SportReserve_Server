@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Moq;
 using SportReserve_Shared.Enums;
 using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.User;
 using SportReserveDatabase.Entities;
 using SportReserveServer;
 using SportReserveServer.Interfaces.Aggregates;
@@ -163,7 +164,7 @@ namespace SportReserveServerUnitTests.Services
         [InlineData("james@gmail.com")]
         [InlineData("James123@wp.pl")]
         [InlineData("RANDOMEMAIL91@onet.pl")]
-        public async Task Get_Email_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
+        public async Task GetByEmail_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
         {
             var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
@@ -173,7 +174,7 @@ namespace SportReserveServerUnitTests.Services
             _mockRepository.Setup(x => x.Get(email)).ReturnsAsync(user);
             _mockMapper.Setup(x => x.Map<GetUserDto>(user)).Returns(userDto);
 
-            await userService.Get(email);
+            await userService.GetByEmail(email);
 
             _mockMapper.Verify(x => x.Map<GetUserDto>(user), Times.Once);
         }

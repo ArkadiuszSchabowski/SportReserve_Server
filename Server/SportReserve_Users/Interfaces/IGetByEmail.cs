@@ -1,9 +1,9 @@
-﻿using SportReserve_Shared.Models;
+﻿using SportReserve_Shared.Models.User;
 
 namespace SportReserveServer.Interfaces
 {
     public interface IGetByEmail
     {
-        Task<GetUserDto> Get(string email);
+        Task<GetUserDto> GetByEmail(string email);
     }
 }

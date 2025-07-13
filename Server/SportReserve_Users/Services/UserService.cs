@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.User;
 using SportReserveDatabase.Entities;
 using SportReserveServer.Interfaces.Aggregates;
 using System.IdentityModel.Tokens.Jwt;
@@ -95,7 +95,7 @@ namespace SportReserveServer.Services
         }
 
 
-        public async Task<GetUserDto> Get(string email)
+        public async Task<GetUserDto> GetByEmail(string email)
         {
             _validator.ValidateEmail(email);
 

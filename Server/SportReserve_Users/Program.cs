@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using SportReserve_Shared.Models;
-using SportReserveDatabase;
+using SportReserve_Shared.Interfaces;
+using SportReserve_Shared.Interfaces.Base;
+using SportReserve_Shared.Middleware;
+using SportReserve_Shared.Models.User;
+using SportReserve_Shared.Validators;
+using SportReserve_Users_Db;
 using SportReserveDatabase.Entities;
 using SportReserveServer;
 using SportReserveServer.CompositionRoot;
 using SportReserveServer.Interfaces;
 using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Interfaces.Base;
-using SportReserveServer.Middleware;
 using SportReserveServer.Repositories;
 using SportReserveServer.Services;
 using SportReserveServer.Validators;
@@ -51,7 +53,7 @@ builder.Services.AddAuthentication(option =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnectionString")));
+builder.Services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnectionString")));
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -66,7 +68,7 @@ builder.Services.AddScoped<IValidatorInput<RegisterDto>, UserValidator>();
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
-builder.Services.AddScoped<IValidatorId,  ValidatorId>();
+builder.Services.AddScoped<IValidatorId, ValidatorId>();
 
 var app = builder.Build();
 

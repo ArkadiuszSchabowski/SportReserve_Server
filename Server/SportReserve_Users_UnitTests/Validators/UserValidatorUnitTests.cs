@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
 using Moq;
 using SportReserve_Shared.Enums;
-using SportReserve_Shared.Models;
+using SportReserve_Shared.Exceptions;
+using SportReserve_Shared.Models.User;
+using SportReserve_Shared.Validators;
 using SportReserveDatabase.Entities;
-using SportReserveServer.Exceptions;
 using SportReserveServer.Interfaces;
-using SportReserveServer.Validators;
 
 namespace SportReserveServerUnitTests.Validators
 {
