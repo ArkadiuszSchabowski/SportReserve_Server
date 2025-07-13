@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer.Interfaces
+﻿namespace SportReserve_Shared.Interfaces
 {
     public interface IAddService<T> where T : class
     {

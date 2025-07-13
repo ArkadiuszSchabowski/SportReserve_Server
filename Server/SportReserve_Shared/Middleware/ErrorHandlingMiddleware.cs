@@ -1,6 +1,7 @@
-﻿using SportReserveServer.Exceptions;
+﻿using Microsoft.AspNetCore.Http;
+using SportReserve_Shared.Exceptions;
 
-namespace SportReserveServer.Middleware
+namespace SportReserve_Shared.Middleware
 {
     public class ErrorHandlingMiddleware : IMiddleware
     {

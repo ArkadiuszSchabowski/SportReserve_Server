@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer.Interfaces.Base
+﻿namespace SportReserve_Shared.Interfaces.Base
 {
     public interface IValidatorInput<T> where T : class
     {

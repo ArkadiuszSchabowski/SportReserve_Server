@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer.Exceptions
+﻿namespace SportReserve_Shared.Exceptions
 {
     public class NotFoundException : Exception
     {
