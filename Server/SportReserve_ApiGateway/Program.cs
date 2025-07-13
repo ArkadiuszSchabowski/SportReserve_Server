@@ -1,3 +1,6 @@
+using SportReserve_ApiGateway.Helpers;
+using SportReserve_ApiGateway.Interfaces;
+using SportReserve_ApiGateway.Validators;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +35,9 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.AddScoped<IHttpResponseValidator, HttpResponseValidator>();
+builder.Services.AddScoped<IHttpResponseHelper, HttpResponseHelper>();
 
 var app = builder.Build();
 
