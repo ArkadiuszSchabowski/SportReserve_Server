@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SportReserve_Shared.Exceptions;
 using SportReserveDatabase.Entities;
-using SportReserveServer.Exceptions;
 using SportReserveServer.Interfaces;
 
 namespace SportReserveServer.Validators

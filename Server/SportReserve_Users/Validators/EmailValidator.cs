@@ -1,4 +1,4 @@
-﻿using SportReserveServer.Exceptions;
+﻿using SportReserve_Shared.Exceptions;
 using SportReserveServer.Interfaces;
 using System.Text.RegularExpressions;
 

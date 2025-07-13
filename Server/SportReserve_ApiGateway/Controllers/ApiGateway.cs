@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.User;
 using System.Text.Json;
 
 namespace SportReserve_ApiGateway.Controllers

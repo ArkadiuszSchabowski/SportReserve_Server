@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.User;
 using SportReserveDatabase.Entities;
 using SportReserveServer.Interfaces.Aggregates;
 using System.IdentityModel.Tokens.Jwt;

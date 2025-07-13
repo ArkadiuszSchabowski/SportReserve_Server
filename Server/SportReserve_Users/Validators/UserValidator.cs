@@ -1,10 +1,10 @@
-﻿using SportReserve_Shared.Models;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Exceptions;
+﻿using SportReserve_Shared.Exceptions;
 using SportReserveServer.Interfaces;
-using SportReserveServer.Interfaces.Base;
+using SportReserve_Shared.Interfaces.Base;
+using SportReserve_Shared.Models.User;
+using SportReserveDatabase.Entities;
 
-namespace SportReserveServer.Validators
+namespace SportReserve_Shared.Validators
 {
     public class UserValidator : IEntityValidator<User>, IUserValidator, IValidatorInput<RegisterDto>
     {
