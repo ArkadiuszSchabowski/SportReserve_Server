@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.User;
 using SportReserveDatabase.Entities;
 
 namespace SportReserveServer
