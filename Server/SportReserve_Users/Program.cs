@@ -51,7 +51,7 @@ builder.Services.AddAuthentication(option =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnectionString")));
+builder.Services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnectionString")));
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -66,7 +66,7 @@ builder.Services.AddScoped<IValidatorInput<RegisterDto>, UserValidator>();
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
-builder.Services.AddScoped<IValidatorId,  ValidatorId>();
+builder.Services.AddScoped<IValidatorId, ValidatorId>();
 
 var app = builder.Build();
 
