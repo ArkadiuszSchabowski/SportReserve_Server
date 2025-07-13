@@ -95,7 +95,7 @@ namespace SportReserveServer.Services
         }
 
 
-        public async Task<GetUserDto> Get(string email)
+        public async Task<GetUserDto> GetByEmail(string email)
         {
             _validator.ValidateEmail(email);
 

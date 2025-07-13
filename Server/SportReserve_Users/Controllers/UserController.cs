@@ -32,7 +32,7 @@ namespace SportReserveServer.Controllers
         [HttpGet("email")]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
-            var user = await _service.Get(email);
+            var user = await _service.GetByEmail(email);
             return Ok(user);
         }
 
