@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_Shared.Models.User;
-using SportReserveServer.Interfaces.Aggregates;
+using SportReserve_Users.Interfaces.Aggregates;
 
-namespace SportReserveServer.Controllers
+namespace SportReserve_Users.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

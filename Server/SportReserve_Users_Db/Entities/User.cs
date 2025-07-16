@@ -1,6 +1,6 @@
 ﻿using SportReserve_Shared.Enums;
 
-namespace SportReserveDatabase.Entities
+namespace SportReserve_Users_Db.Entities
 {
     public class User
     {

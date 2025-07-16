@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer.Interfaces
+﻿namespace SportReserve_Users.Interfaces
 {
     public interface IEmailValidator
     {

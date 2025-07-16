@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SportReserve_Shared.Exceptions;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Interfaces;
+using SportReserve_Users.Interfaces;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer.Validators
+namespace SportReserve_Users.Validators
 {
     public class LoginValidator : ILoginValidator
     {

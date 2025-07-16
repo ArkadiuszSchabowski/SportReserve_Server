@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SportReserveDatabase.Entities;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer.Interfaces
+namespace SportReserve_Users.Interfaces
 {
     public interface ILoginValidator
     {

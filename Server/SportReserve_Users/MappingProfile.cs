@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using SportReserve_Shared.Models.User;
-using SportReserveDatabase.Entities;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer
+namespace SportReserve_Users
 {
     public class MappingProfile : Profile
     {

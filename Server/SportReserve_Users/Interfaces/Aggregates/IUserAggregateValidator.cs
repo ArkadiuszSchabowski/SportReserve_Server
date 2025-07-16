@@ -1,8 +1,8 @@
 ﻿using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Interfaces.Base;
-using SportReserveDatabase.Entities;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer.Interfaces.Aggregates
+namespace SportReserve_Users.Interfaces.Aggregates
 {
     public interface IUserAggregateValidator : IEntityValidator<User>, IUserValidator, ILoginValidator, IValidatorId, IEmailValidator
     {

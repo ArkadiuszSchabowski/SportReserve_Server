@@ -1,4 +1,4 @@
-﻿namespace SportReserveServer
+﻿namespace SportReserve_Users
 {
     public class AuthenticationSettings
     {

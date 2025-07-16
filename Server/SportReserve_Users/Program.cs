@@ -1,19 +1,22 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Interfaces.Base;
 using SportReserve_Shared.Middleware;
 using SportReserve_Shared.Models.User;
-using SportReserve_Shared.Validators;
+
+using SportReserve_Users;
+using SportReserve_Users.CompositionRoot;
+using SportReserve_Users.Interfaces;
+using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Repositories;
+using SportReserve_Users.Services;
+using SportReserve_Users.Validators;
 using SportReserve_Users_Db;
-using SportReserveDatabase.Entities;
-using SportReserveServer;
-using SportReserveServer.CompositionRoot;
-using SportReserveServer.Interfaces;
-using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Repositories;
-using SportReserveServer.Services;
+
+using SportReserve_Users_Db.Entities;
 using SportReserveServer.Validators;
 using System.Text;
 using System.Text.Json.Serialization;

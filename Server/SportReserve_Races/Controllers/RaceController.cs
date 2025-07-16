@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_Shared.Models.User;
 using SportReserve_Shared.Models.Workout;
 using SportReserve_Workouts.Interfaces.Aggregates;
 

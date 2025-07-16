@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races_Db.Entities;
-using SportReserve_Shared.Models.User;
 using SportReserve_Shared.Models.Workout;
 using SportReserve_Workouts.Interfaces.Aggregates;
 

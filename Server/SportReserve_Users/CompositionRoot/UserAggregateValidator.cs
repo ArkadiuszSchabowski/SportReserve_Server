@@ -2,11 +2,11 @@
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Interfaces.Base;
 using SportReserve_Shared.Models.User;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Interfaces;
-using SportReserveServer.Interfaces.Aggregates;
+using SportReserve_Users.Interfaces;
+using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer.CompositionRoot
+namespace SportReserve_Users.CompositionRoot
 {
     public class UserAggregateValidator : IUserAggregateValidator
     {
