@@ -1,6 +1,7 @@
-﻿using SportReserveDatabase.Entities;
+﻿using SportReserve_Users_Db.Entities;
+using SportReserveServer.Interfaces;
 
-namespace SportReserveServer.Interfaces.Aggregates
+namespace SportReserve_Users.Interfaces.Aggregates
 {
     public interface IUserAggregateRepository : IRepository<User>, IGetByEmailRepository { }
 }

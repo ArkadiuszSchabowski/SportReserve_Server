@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using SportReserve_Shared.Models.User;
-using SportReserve_Users_Db.Entities;
+using SportReserve_Races_Db.Entities;
+using SportReserve_Shared.Models.Race;
 
 namespace SportReserve_Users
 {
@@ -8,8 +8,8 @@ namespace SportReserve_Users
     {
         public MappingProfile()
         {
-            CreateMap<User, GetUserDto>();
-            CreateMap<RegisterDto, User>();
+            CreateMap<Race, GetRaceDto>();
+            CreateMap<AddRaceDto, Race>();
         }
     }
 }

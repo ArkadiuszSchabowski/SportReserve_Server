@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using SportReserve_Shared.Exceptions;
-using SportReserveServer.Validators;
+using SportReserve_Users.Validators;
 
 namespace SportReserveServerUnitTests.Validators
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportReserveDatabase.Entities;
+using SportReserve_Users_Db.Entities;
 
 namespace SportReserve_Users_Db
 {

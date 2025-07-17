@@ -21,9 +21,9 @@ builder.Services.AddHttpClient("UserService", client =>
     client.BaseAddress = new Uri("https://localhost:5001/api/user/");
 });
 
-builder.Services.AddHttpClient("BookingService", client =>
+builder.Services.AddHttpClient("RaceService", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:5002/api/booking/");
+    client.BaseAddress = new Uri("https://localhost:5002/api/race/");
 });
 
 builder.Services.AddCors(options =>

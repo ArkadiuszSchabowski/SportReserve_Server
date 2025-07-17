@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_Shared.Models.User;
-using SportReserve_Shared.Models.Workout;
-using SportReserve_Workouts.Interfaces.Aggregates;
+using SportReserve_Races.Interfaces.Aggregates;
+using SportReserve_Shared.Models.Race;
 
-namespace SportReserve_Workouts.Controllers
+namespace SportReserve_Races.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,18 +17,18 @@ namespace SportReserve_Workouts.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetRaceDto>>> Get()
         {
-            var workouts = await _service.Get();
-            return Ok(workouts);
+            var races = await _service.Get();
+            return Ok(races);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetRaceDto>> Get([FromRoute] int id)
         {
-            var workout = await _service.Get(id);
-            return Ok(workout);
+            var race = await _service.Get(id);
+            return Ok(race);
         }
 
-        [HttpGet("name")]
+        [HttpGet("by-name")]
         public async Task<ActionResult<GetRaceDto>> Get([FromQuery] string name)
         {
             var race = await _service.GetByName(name);

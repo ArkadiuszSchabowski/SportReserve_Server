@@ -1,6 +1,6 @@
 ﻿using SportReserve_Shared.Models.User;
 
-namespace SportReserveServer.Interfaces
+namespace SportReserve_Users.Interfaces
 {
     public interface IUserValidator
     {

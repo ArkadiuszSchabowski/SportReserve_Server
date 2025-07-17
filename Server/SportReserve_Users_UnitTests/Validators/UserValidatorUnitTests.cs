@@ -3,9 +3,9 @@ using Moq;
 using SportReserve_Shared.Enums;
 using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Models.User;
-using SportReserve_Shared.Validators;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Interfaces;
+using SportReserve_Users.Interfaces;
+using SportReserve_Users.Validators;
+using SportReserve_Users_Db.Entities;
 
 namespace SportReserveServerUnitTests.Validators
 {

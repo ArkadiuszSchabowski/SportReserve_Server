@@ -1,7 +1,7 @@
 ﻿using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.User;
 
-namespace SportReserveServer.Interfaces.Aggregates
+namespace SportReserve_Users.Interfaces.Aggregates
 {
     public interface IUserAggregateService :
     IAddService<RegisterDto>,

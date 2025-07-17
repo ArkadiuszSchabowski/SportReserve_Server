@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users_Db;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Interfaces.Aggregates;
+using SportReserve_Users_Db.Entities;
 
-namespace SportReserveServer.Repositories
+namespace SportReserve_Users.Repositories
 {
     public class UserRepository : IUserAggregateRepository
     {

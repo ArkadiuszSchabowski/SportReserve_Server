@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using SportReserve_Shared.Models.User;
-using SportReserveDatabase.Entities;
-using SportReserveServer.Interfaces.Aggregates;
+using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users_Db.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SportReserveServer.Services
+namespace SportReserve_Users.Services
 {
     public class UserService : IUserAggregateService
     {

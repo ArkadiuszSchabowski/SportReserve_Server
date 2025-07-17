@@ -1,8 +1,8 @@
 ﻿using SportReserve_Shared.Exceptions;
-using SportReserveServer.Interfaces;
+using SportReserve_Users.Interfaces;
 using System.Text.RegularExpressions;
 
-namespace SportReserveServer.Validators
+namespace SportReserve_Users.Validators
 {
     public class EmailValidator : IEmailValidator
     {
