@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using SportReserve_Shared.Models.User;
 using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Models.User;
 using System.Text.Json;
 
 namespace SportReserve_ApiGateway.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiGatewayController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpResponseHelper _httpResponseHelper;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly JsonSerializerOptions _jsonOptions;
-        public ApiGatewayController(IHttpClientFactory httpClientFactory, IHttpResponseHelper httpResponseHelper, IHttpResponseValidator httpResponseValidator, IOptions<JsonOptions> jsonOptions)
+        public UserController(IHttpClientFactory httpClientFactory, IHttpResponseHelper httpResponseHelper, IHttpResponseValidator httpResponseValidator, IOptions<JsonOptions> jsonOptions)
         {
             _httpClientFactory = httpClientFactory;
             _httpResponseHelper = httpResponseHelper;
@@ -23,7 +23,7 @@ namespace SportReserve_ApiGateway.Controllers
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
 
-        [HttpGet("users")]
+        [HttpGet()]
         public async Task<ActionResult<List<GetUserDto>>> GetUsers()
         {
             var client = _httpClientFactory.CreateClient("UserService");
@@ -46,7 +46,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(users);
         }
 
-        [HttpGet("users/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GetUserDto>> GetUser([FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
@@ -69,7 +69,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(user);
         }
 
-        [HttpGet("users/by-email")]
+        [HttpGet("by-email")]
         public async Task<ActionResult<GetUserDto>> GetUser([FromQuery] string email)
         {
             var client = _httpClientFactory.CreateClient("UserService");
@@ -79,7 +79,7 @@ namespace SportReserve_ApiGateway.Controllers
                 ["email"] = email
             };
 
-            var url = QueryHelpers.AddQueryString("email", query);
+            var url = QueryHelpers.AddQueryString("by-email", query);
 
             var response = await client.GetAsync(url);
 
@@ -99,7 +99,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(result);
         }
 
-        [HttpPost("users/register")]
+        [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto dto)
         {
             var client = _httpClientFactory.CreateClient("UserService");
@@ -120,7 +120,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok();
         }
 
-        [HttpPost("users/login")]
+        [HttpPost("login")]
         public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
         {
             var client = _httpClientFactory.CreateClient("UserService");
@@ -141,7 +141,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(responseBody);
         }
 
-        [HttpDelete("users/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<string>> Remove([FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
