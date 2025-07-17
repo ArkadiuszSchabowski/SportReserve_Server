@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_Shared.Models.Workout;
-using SportReserve_Workouts.Interfaces.Aggregates;
+using SportReserve_Races.Interfaces.Aggregates;
+using SportReserve_Shared.Models.Race;
 
-namespace SportReserve_Workouts.Controllers
+namespace SportReserve_Races.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

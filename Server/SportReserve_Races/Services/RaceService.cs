@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races_Db.Entities;
-using SportReserve_Shared.Models.Workout;
+using SportReserve_Shared.Models.Race;
 using SportReserve_Workouts.Interfaces.Aggregates;
 
-namespace SportReserve_Workouts.Services
+namespace SportReserve_Races.Services
 {
     public class RaceService : IRaceAggregateService
     {

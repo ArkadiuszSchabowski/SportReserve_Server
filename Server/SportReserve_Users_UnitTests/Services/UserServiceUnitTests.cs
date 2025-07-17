@@ -5,12 +5,11 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using SportReserve_Shared.Enums;
-using SportReserve_Shared.Models;
 using SportReserve_Shared.Models.User;
-using SportReserveDatabase.Entities;
-using SportReserveServer;
-using SportReserveServer.Interfaces.Aggregates;
-using SportReserveServer.Services;
+using SportReserve_Users;
+using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Services;
+using SportReserve_Users_Db.Entities;
 
 namespace SportReserveServerUnitTests.Services
 {

@@ -1,4 +1,4 @@
-﻿using SportReserve_Shared.Models.Workout;
+﻿using SportReserve_Shared.Models.Race;
 
 namespace SportReserve_Races.Interfaces
 {

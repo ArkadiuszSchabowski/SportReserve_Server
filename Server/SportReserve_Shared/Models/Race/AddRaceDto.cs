@@ -1,4 +1,4 @@
-﻿namespace SportReserve_Shared.Models.Workout
+﻿namespace SportReserve_Shared.Models.Race
 {
     public class AddRaceDto
     {
