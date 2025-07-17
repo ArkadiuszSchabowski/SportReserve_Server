@@ -17,18 +17,18 @@ namespace SportReserve_Races.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetRaceDto>>> Get()
         {
-            var workouts = await _service.Get();
-            return Ok(workouts);
+            var races = await _service.Get();
+            return Ok(races);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GetRaceDto>> Get([FromRoute] int id)
         {
-            var workout = await _service.Get(id);
-            return Ok(workout);
+            var race = await _service.Get(id);
+            return Ok(race);
         }
 
-        [HttpGet("name")]
+        [HttpGet("by-name")]
         public async Task<ActionResult<GetRaceDto>> Get([FromQuery] string name)
         {
             var race = await _service.GetByName(name);
