@@ -29,7 +29,7 @@ namespace SportReserve_Users.Controllers
             return Ok(user);
         }
 
-        [HttpGet("email")]
+        [HttpGet("by-email")]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
             var user = await _service.GetByEmail(email);
