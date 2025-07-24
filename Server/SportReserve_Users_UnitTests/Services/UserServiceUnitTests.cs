@@ -5,8 +5,10 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using SportReserve_Shared.Enums;
+using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users;
+using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users.Services;
 using SportReserve_Users_Db.Entities;
@@ -19,18 +21,20 @@ namespace SportReserveServerUnitTests.Services
         private readonly Mock<IUserAggregateRepository> _mockRepository;
         private readonly Mock<IUserAggregateValidator> _mockValidator;
         private readonly Mock<IPasswordHasher<User>> _mockPasswordHasher;
+        private readonly Mock<IProducerUser> _mockProducer;
         private readonly Mock<IMapper> _mockMapper;
         public UserServiceUnitTests()
         {
             _mockRepository = new Mock<IUserAggregateRepository>();
             _mockValidator = new Mock<IUserAggregateValidator>();
             _mockPasswordHasher = new Mock<IPasswordHasher<User>>();
+            _mockProducer = new Mock<IProducerUser>();
             _mockMapper = new Mock<IMapper>();
         }
         [Fact]
         public async Task Add_WithValidDto_InvokeRepositoryAddMethodOnce()
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var dto = new RegisterDto() { Name = "James", Surname = "Wiliams", Email = "wiliams@gmail.com", Gender = Gender.Male, DateOfBirth = DateOnly.Parse("01.01.1990"), Password = "James123", RepeatPassword = "James123" };
 
@@ -53,7 +57,7 @@ namespace SportReserveServerUnitTests.Services
         [Fact]
         public async Task Get_WithoutUsers_ReturnsEmptyList()
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var users = new List<User>();
             var usersDto = new List<GetUserDto>();
@@ -70,7 +74,7 @@ namespace SportReserveServerUnitTests.Services
         [Fact]
         public async Task Get_WithUsers_ReturnsUsersDtoList()
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var users = new List<User>()
             {
@@ -118,7 +122,7 @@ namespace SportReserveServerUnitTests.Services
                 JwtIssuer = "Test Issuer"
             };
 
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, authenticationSettings);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, authenticationSettings);
 
             var dto = new LoginDto { Email = "jamesbrown@gmail.com", Password = "James123" };
 
@@ -146,7 +150,7 @@ namespace SportReserveServerUnitTests.Services
         [InlineData(999)]
         public async Task Get_Id_WithValidId_ShouldInvokeMappingToGetUserDtoOnce(int id)
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();
@@ -165,7 +169,7 @@ namespace SportReserveServerUnitTests.Services
         [InlineData("RANDOMEMAIL91@onet.pl")]
         public async Task GetByEmail_WithValidEmail_ShouldInvokeMappingToGetUserDtoOnce(string email)
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();
@@ -184,7 +188,7 @@ namespace SportReserveServerUnitTests.Services
         [InlineData(1000)]
         public async Task Remove_WithValidId_ShoudInvokeRemoveFromRepositoryOnce(int id)
         {
-            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
+            var userService = new UserService(_mockRepository.Object, _mockValidator.Object, _mockPasswordHasher.Object, _mockProducer.Object, _mockMapper.Object, null);
 
             var user = new User();
             var userDto = new GetUserDto();

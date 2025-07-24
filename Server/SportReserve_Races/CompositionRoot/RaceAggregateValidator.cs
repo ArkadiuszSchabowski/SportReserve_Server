@@ -42,7 +42,7 @@ namespace SportReserve_Races.CompositionRoot
             _validatorId.ValidateId(id);
         }
 
-        public void ValidateRace(AddRaceDto entity)
+        public void ValidateRace(AddRaceDto? entity)
         {
             _raceValidator.ValidateRace(entity);
         }

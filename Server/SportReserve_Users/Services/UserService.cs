@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using SportReserve_Shared.Models.User;
+using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users_Db.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,14 +17,16 @@ namespace SportReserve_Users.Services
         private readonly IUserAggregateValidator _validator;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IMapper _mapper;
+        private readonly IProducerUser _producer;
         private readonly AuthenticationSettings _authenticationSettings;
 
-        public UserService(IUserAggregateRepository repository, IUserAggregateValidator validator, IPasswordHasher<User> passwordHasher, IMapper mapper, AuthenticationSettings authenticationSettings)
+        public UserService(IUserAggregateRepository repository, IUserAggregateValidator validator, IPasswordHasher<User> passwordHasher, IProducerUser producer, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
             _repository = repository;
             _validator = validator;
             _passwordHasher = passwordHasher;
             _mapper = mapper;
+            _producer = producer;
             _authenticationSettings = authenticationSettings;
         }
         public async Task Add(RegisterDto dto)
@@ -41,6 +44,10 @@ namespace SportReserve_Users.Services
             newUser.PasswordHash = passwordHash;
 
             await _repository.Add(newUser);
+
+            var userRegisteredEvent = _mapper.Map<UserRegisteredEventDto>(newUser);
+
+            _producer.RegisterEvent(userRegisteredEvent);
         }
 
         public async Task<string> GenerateJwt(LoginDto dto)
