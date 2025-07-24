@@ -8,6 +8,7 @@ using SportReserve_Shared.Enums;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users;
+using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users.Services;
 using SportReserve_Users_Db.Entities;
@@ -20,14 +21,14 @@ namespace SportReserveServerUnitTests.Services
         private readonly Mock<IUserAggregateRepository> _mockRepository;
         private readonly Mock<IUserAggregateValidator> _mockValidator;
         private readonly Mock<IPasswordHasher<User>> _mockPasswordHasher;
-        private readonly Mock<IProducer> _mockProducer;
+        private readonly Mock<IProducerUser> _mockProducer;
         private readonly Mock<IMapper> _mockMapper;
         public UserServiceUnitTests()
         {
             _mockRepository = new Mock<IUserAggregateRepository>();
             _mockValidator = new Mock<IUserAggregateValidator>();
             _mockPasswordHasher = new Mock<IPasswordHasher<User>>();
-            _mockProducer = new Mock<IProducer>();
+            _mockProducer = new Mock<IProducerUser>();
             _mockMapper = new Mock<IMapper>();
         }
         [Fact]
