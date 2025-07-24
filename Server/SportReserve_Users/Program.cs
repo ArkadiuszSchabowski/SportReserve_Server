@@ -11,6 +11,7 @@ using SportReserve_Users;
 using SportReserve_Users.CompositionRoot;
 using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.RabbitMq;
 using SportReserve_Users.Repositories;
 using SportReserve_Users.Services;
 using SportReserve_Users.Validators;
