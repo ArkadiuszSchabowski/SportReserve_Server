@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Interfaces.Base;
 using SportReserve_Shared.Middleware;
 using SportReserve_Shared.Models.User;
-
 using SportReserve_Users;
 using SportReserve_Users.CompositionRoot;
 using SportReserve_Users.Interfaces;
@@ -16,7 +14,6 @@ using SportReserve_Users.Repositories;
 using SportReserve_Users.Services;
 using SportReserve_Users.Validators;
 using SportReserve_Users_Db;
-
 using SportReserve_Users_Db.Entities;
 using SportReserveServer.Validators;
 using System.Text;
@@ -73,6 +70,8 @@ builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
 builder.Services.AddScoped<IValidatorId, ValidatorId>();
+
+builder.Services.AddScoped<IProducerUser, ProducerUser>();
 
 var app = builder.Build();
 
