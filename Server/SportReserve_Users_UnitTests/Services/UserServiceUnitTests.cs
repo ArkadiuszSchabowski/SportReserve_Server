@@ -5,11 +5,11 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using SportReserve_Shared.Enums;
-using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users;
 using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Models;
 using SportReserve_Users.Services;
 using SportReserve_Users_Db.Entities;
 
@@ -140,8 +140,9 @@ namespace SportReserveServerUnitTests.Services
             _mockRepository.Setup(x => x.Get(dto.Email)).ReturnsAsync(user);
             _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.Password)).Returns(PasswordVerificationResult.Success);
 
-            var token = await userService.GenerateJwt(dto);
-            token.Should().NotBeNullOrEmpty();
+            TokenDto token = await userService.GenerateJwt(dto);
+
+            token.Should().NotBeNull();
         }
 
         [Theory]

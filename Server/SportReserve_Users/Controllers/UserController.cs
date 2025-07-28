@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Models;
 
 namespace SportReserve_Users.Controllers
 {
@@ -43,8 +44,15 @@ namespace SportReserve_Users.Controllers
             return Ok();
         }
 
+        [HttpPost("register/step1/validate")]
+        public async Task<ActionResult> ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        {
+            await _service.ValidateRegisterStepOne(dto);
+            return Ok();
+        }
+
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<TokenDto>> Login([FromBody] LoginDto dto)
         {
             var token = await _service.GenerateJwt(dto);
             return Ok(token);

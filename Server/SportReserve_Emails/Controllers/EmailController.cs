@@ -14,17 +14,10 @@ namespace SportReserve_Emails.Controllers
         {
             _service = service;
         }
-        [HttpPost("send-one")]
+        [HttpPost("send")]
         public async Task<ActionResult> SendEmail([FromBody] SendEmailDto dto)
         {
             await _service.SendEmail(dto);
-            return Ok();
-        }
-
-        [HttpPost("send-many")]
-        public async Task<ActionResult> SendManyEmails([FromBody] List<SendEmailsDto> dto)
-        {
-            await _service.SendManyEmails(dto);
             return Ok();
         }
     }

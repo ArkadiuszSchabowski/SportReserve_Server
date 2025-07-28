@@ -8,6 +8,8 @@ namespace SportReserve_Users.Interfaces.Aggregates
     IGetService<GetUserDto>,
     IGetByEmail,
     IRemoveService,
-    ITokenService
-    { }
+    ITokenService,
+    IValidateRegisterStepOne
+    {
+    }
 }

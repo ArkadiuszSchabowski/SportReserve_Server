@@ -4,6 +4,6 @@ namespace SportReserve_Emails.Interfaces
 {
     public interface IEmailEventHandler
     {
-        void SendRegisterEmail(UserRegisteredEventDto dto);
+        Task SendRegisterEmail(UserRegisteredEventDto dto);
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Models;
 using SportReserve_Users_Db.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -50,7 +51,7 @@ namespace SportReserve_Users.Services
             _producer.RegisterEvent(userRegisteredEvent);
         }
 
-        public async Task<string> GenerateJwt(LoginDto dto)
+        public async Task<TokenDto> GenerateJwt(LoginDto dto)
         {
             var user = await _repository.Get(dto.Email);
 
@@ -76,8 +77,14 @@ namespace SportReserve_Users.Services
                 signingCredentials: cred);
 
             var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenString = tokenHandler.WriteToken(token);
 
-            return tokenHandler.WriteToken(token);
+            var newToken = new TokenDto()
+            {
+                Token = tokenString
+            };
+
+            return newToken;
         }
         public async Task<List<GetUserDto>> Get()
         {
@@ -124,6 +131,14 @@ namespace SportReserve_Users.Services
             _validator.ThrowIfEntityIsNull(user!);
 
             await _repository.Remove(user!);
+        }
+
+        public async Task ValidateRegisterStepOne(RegisterStepOneDto dto)
+        {
+
+            User? user = await _repository.Get(dto.Email);
+
+            _validator.ThrowIfEntityExist(user);
         }
     }
 }
