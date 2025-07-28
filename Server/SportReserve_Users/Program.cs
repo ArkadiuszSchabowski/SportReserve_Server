@@ -32,6 +32,16 @@ builder.Services
 
 var authenticationSettings = new AuthenticationSettings();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("UserPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddSingleton(authenticationSettings);
 builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
 builder.Services.AddAuthentication(option =>
@@ -74,6 +84,8 @@ builder.Services.AddScoped<IValidatorId, ValidatorId>();
 builder.Services.AddScoped<IProducerUser, ProducerUser>();
 
 var app = builder.Build();
+
+app.UseCors("UserPolicy");
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
