@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces.Aggregates;
+using SportReserve_Users.Models;
 
 namespace SportReserve_Users.Controllers
 {
@@ -40,6 +41,13 @@ namespace SportReserve_Users.Controllers
         public async Task<ActionResult> Register([FromBody] RegisterDto dto)
         {
             await _service.Add(dto);
+            return Ok();
+        }
+
+        [HttpPost("register/step1/validate")]
+        public async Task<ActionResult> ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        {
+            await _service.ValidateRegisterStepOne(dto);
             return Ok();
         }
 
