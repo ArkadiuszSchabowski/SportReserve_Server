@@ -44,7 +44,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<TokenDto>> Login([FromBody] LoginDto dto)
         {
             var token = await _service.GenerateJwt(dto);
             return Ok(token);
