@@ -131,5 +131,13 @@ namespace SportReserve_Users.Services
 
             await _repository.Remove(user!);
         }
+
+        public async Task ValidateRegisterStepOne(RegisterStepOneDto dto)
+        {
+
+            User? user = await _repository.Get(dto.Email);
+
+            _validator.ThrowIfEntityExist(user);
+        }
     }
 }
