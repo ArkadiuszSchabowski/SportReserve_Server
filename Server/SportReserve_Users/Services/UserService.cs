@@ -50,7 +50,7 @@ namespace SportReserve_Users.Services
             _producer.RegisterEvent(userRegisteredEvent);
         }
 
-        public async Task<string> GenerateJwt(LoginDto dto)
+        public async Task<TokenDto> GenerateJwt(LoginDto dto)
         {
             var user = await _repository.Get(dto.Email);
 
@@ -76,8 +76,14 @@ namespace SportReserve_Users.Services
                 signingCredentials: cred);
 
             var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenString = tokenHandler.WriteToken(token);
 
-            return tokenHandler.WriteToken(token);
+            var newToken = new TokenDto()
+            {
+                Token = tokenString
+            };
+
+            return newToken;
         }
         public async Task<List<GetUserDto>> Get()
         {
