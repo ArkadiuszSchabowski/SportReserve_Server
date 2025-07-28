@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Models;
 
 namespace SportReserve_ApiGateway.Helpers
 {
@@ -9,10 +10,11 @@ namespace SportReserve_ApiGateway.Helpers
         {
             if (!response.IsSuccessStatusCode)
             {
-                return new ObjectResult(new { details = responseBody })
+                return new ObjectResult(new ErrorResponseDto
                 {
-                    StatusCode = (int)response.StatusCode
-                };
+                    StatusCode = (int)response.StatusCode,
+                    Message = responseBody
+                });
             }
             return null;
         }
