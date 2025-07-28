@@ -9,10 +9,5 @@ namespace SportReserve_Emails.Services
         {
             throw new NotImplementedException();
         }
-
-        public Task SendManyEmails(List<SendEmailsDto> dto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
