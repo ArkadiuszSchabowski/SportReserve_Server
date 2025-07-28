@@ -121,7 +121,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var client = _httpClientFactory.CreateClient("UserService");
 
@@ -131,15 +131,23 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
+            if (!response.IsSuccessStatusCode)
             {
-                return actionResult;
+                return new ObjectResult(responseBody)
+                {
+                    StatusCode = (int)response.StatusCode,
+                    ContentTypes = { "application/json" }
+                };
             }
 
-            return Ok(responseBody);
+            return new ContentResult
+            {
+                Content = responseBody,
+                StatusCode = (int)response.StatusCode,
+                ContentType = "application/json"
+            };
         }
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<string>> Remove([FromRoute] int id)
