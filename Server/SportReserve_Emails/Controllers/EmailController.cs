@@ -15,9 +15,9 @@ namespace SportReserve_Emails.Controllers
             _service = service;
         }
         [HttpPost("send")]
-        public async Task<ActionResult> SendEmail([FromBody] SendEmailDto dto)
+        public async Task<ActionResult> SendEmailToAdmin([FromBody] SendEmailToAdminDto dto)
         {
-            await _service.SendEmail(dto);
+            await _service.SendEmailToAdmin(dto);
             return Ok();
         }
     }

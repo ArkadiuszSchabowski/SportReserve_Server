@@ -4,6 +4,6 @@ namespace SportReserve_Emails.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmail(SendEmailDto dto);
+        Task SendEmailToAdmin(SendEmailToAdminDto dto);
     }
 }
