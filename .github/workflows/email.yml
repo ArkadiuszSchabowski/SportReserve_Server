@@ -1,0 +1,35 @@
+name: Server_Emails - Pipeline
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - 'Server/SportReserve_Emails/**'
+  pull_request:
+    branches: ["main"]
+    paths:
+      - 'Server/SportReserve_Emails/**'
+
+jobs:
+  build:
+    runs-on: windows-latest 
+    
+    steps:
+      - uses: actions/checkout@v3
+          
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore SportReserve_Emails.csproj
+        working-directory: ./Server/SportReserve_Emails
+
+      - name: Build
+        run: dotnet build SportReserve_Emails.csproj --no-restore
+        working-directory: ./Server/SportReserve_Emails
+
+      - name: Test
+        run: dotnet test SportReserve_Emails.csproj --filter Category=Unit
+        working-directory: ./Server/SportReserve_Emails
