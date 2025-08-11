@@ -3,6 +3,7 @@ using SportReserve_Races.CompositionRoot;
 using SportReserve_Races.Interfaces;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races.Repositories;
+using SportReserve_Races.Seeders;
 using SportReserve_Races.Services;
 using SportReserve_Races.Validators;
 using SportReserve_Races_Db;
