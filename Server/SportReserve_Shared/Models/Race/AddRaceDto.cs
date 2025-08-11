@@ -1,13 +1,13 @@
-﻿namespace SportReserve_Shared.Models.Race
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SportReserve_Shared.Models.Race
 {
     public class AddRaceDto
     {
+        [Required(ErrorMessage = "Race name is required.")]
+        [MinLength(5, ErrorMessage = "Race name must be between 5 and 100 characters.")]
+        [MaxLength(100, ErrorMessage = "Race name must be between 5 and 100 characters.")]
         public string Name { get; set; } = string.Empty;
-        public DateOnly DateOfStart { get; set; }
-        public string City { get; set; } = string.Empty;
-        public string Place { get; set; } = string.Empty;
-        public double Distance { get; set; }
-        public int Slots { get; set; }
-        public bool IsRegistrationOpen { get; set; }
+        public string? PosterUrl { get; set; }
     }
 }

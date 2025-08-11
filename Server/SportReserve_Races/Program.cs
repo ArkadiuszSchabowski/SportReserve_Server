@@ -11,6 +11,7 @@ using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Interfaces.Base;
 using SportReserve_Shared.Middleware;
 using SportReserve_Shared.Models.Race;
+using SportReserveServer.Interfaces;
 using SportReserveServer.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,17 +27,28 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 builder.Services.AddScoped<IRaceAggregateService, RaceService>();
-builder.Services.AddScoped<IRaceAggregateRepository, RaceRepository>();
-builder.Services.AddScoped<IRaceAggregateValidator, RaceAggregateValidator>();
+builder.Services.AddScoped<IRaceTraceAggregateService, RaceTraceService>();
 
+builder.Services.AddScoped<IRaceAggregateRepository, RaceRepository>();
+builder.Services.AddScoped<IRepository<RaceTrace>, RaceTraceRepository>();
+
+builder.Services.AddScoped<IRaceAggregateValidator, RaceAggregateValidator>();
+builder.Services.AddScoped<IRaceTraceAggregateValidator, RaceTraceAggregateValidator>();
+
+builder.Services.AddScoped<IRaceTraceValidator, RaceTraceValidator>();
 builder.Services.AddScoped<IRaceValidator, RaceValidator>();
+
 builder.Services.AddScoped<IEntityValidator<Race>, RaceValidator>();
+builder.Services.AddScoped<IEntityNullValidator<RaceTrace>, RaceTraceValidator>();
+
 builder.Services.AddScoped<IValidatorInput<AddRaceDto>, RaceValidator>();
+builder.Services.AddScoped<IValidatorInput<AddRaceTraceDto>, RaceTraceValidator>();
+
 builder.Services.AddScoped<IValidatorId, ValidatorId>();
 
 var app = builder.Build();
 
-app.UseMiddleware<ErrorHandlingMiddleware>();
+//app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
