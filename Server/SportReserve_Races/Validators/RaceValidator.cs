@@ -36,39 +36,9 @@ namespace SportReserve_Races.Validators
         {
             ThrowIfDtoIsNull(dto);
 
-            if (string.IsNullOrWhiteSpace(dto!.Name) || dto.Name.Length < 5 || dto.Name.Length > 50)
+            if (string.IsNullOrWhiteSpace(dto!.Name) || dto.Name.Length < 5 || dto.Name.Length > 100)
             {
-                throw new BadRequestException("Race name must be between 5 and 50 characters.");
-            }
-
-            if (string.IsNullOrWhiteSpace(dto.Place) || dto.Place.Length < 3 || dto.Place.Length > 25)
-            {
-                throw new BadRequestException("Race place must be between 3 and 25 characters.");
-            }
-
-            if (string.IsNullOrWhiteSpace(dto.City) || dto.City.Length < 3 || dto.City.Length > 25)
-            {
-                throw new BadRequestException("Race city must be between 3 and 25 characters.");
-            }
-
-            if (dto.DateOfStart < DateOnly.FromDateTime(DateTime.Now))
-            {
-                throw new BadRequestException("Incorrect date of start.");
-            }
-
-            if (dto.Slots < 10 || dto.Slots > 50000)
-            {
-                throw new BadRequestException("Race slots must be between 10 and 50000.");
-            }
-
-            if(dto.IsRegistrationOpen == false)
-            {
-                throw new BadRequestException("Registration for this race is closed.");
-            }
-
-            if(dto.Distance < 0.1 || dto.Distance > 100)
-            {
-                throw new BadRequestException("Race distance must be between 0.1km and 100km.");
+                throw new BadRequestException("Race name must be between 5 and 100 characters.");
             }
         }
     }
