@@ -46,9 +46,22 @@ builder.Services.AddScoped<IValidatorInput<AddRaceTraceDto>, RaceTraceValidator>
 
 builder.Services.AddScoped<IValidatorId, ValidatorId>();
 
+builder.Services.AddScoped<IRaceSeeder, RaceSeeder>();
+
 var app = builder.Build();
 
 //app.UseMiddleware<ErrorHandlingMiddleware>();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<RaceDbContext>();
+    context.Database.Migrate();
+
+    var raceSeeder = services.GetRequiredService<IRaceSeeder>();
+
+    raceSeeder.SeedData();
+}
 
 if (app.Environment.IsDevelopment())
 {
