@@ -21,17 +21,17 @@ namespace SportReserve_Races.Repositories
 
         public async Task<List<Race>> Get()
         {
-            return await _context.Races.ToListAsync();
+            return await _context.Races.Include(x => x.RaceTraces).ToListAsync();
         }
 
         public async Task<Race?> Get(int id)
         {
-            return await _context.Races.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Races.Include(x => x.RaceTraces).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Race?> Get(string name)
         {
-            return await _context.Races.FirstOrDefaultAsync(x => x.Name == name);
+            return await _context.Races.Include(x => x.RaceTraces).FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public async Task Remove(Race race)
