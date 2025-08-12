@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_Races.Interfaces.Aggregates;
+using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
 
 namespace SportReserve_Races.Controllers
@@ -15,9 +16,9 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetRaceDto>>> Get()
+        public async Task<ActionResult<List<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
         {
-            var races = await _service.Get();
+            var races = await _service.Get(dto);
             return Ok(races);
         }
 
