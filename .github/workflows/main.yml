@@ -1,0 +1,35 @@
+name: Server_Races - Pipeline
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - 'Server/SportReserve_Races/**'
+  pull_request:
+    branches: ["main"]
+    paths:
+      - 'Server/SportReserve_Races/**'
+
+jobs:
+  build:
+    runs-on: windows-latest 
+    
+    steps:
+      - uses: actions/checkout@v3
+          
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore SportReserve_Races.csproj
+        working-directory: ./Server/SportReserve_Races
+
+      - name: Build
+        run: dotnet build SportReserve_Races.csproj --no-restore
+        working-directory: ./Server/SportReserve_Races
+
+      - name: Test
+        run: dotnet test SportReserve_Races.csproj --filter Category=Unit
+        working-directory: ./Server/SportReserve_Races
