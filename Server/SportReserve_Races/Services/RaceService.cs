@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races_Db.Entities;
+using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
 
 namespace SportReserve_Races.Services
@@ -30,11 +31,19 @@ namespace SportReserve_Races.Services
 
             await _repository.Add(newRace);
         }
-        public async Task<List<GetRaceDto>> Get()
+        public async Task<PaginationResult<GetRaceDto>> Get(PaginationDto paginationDto)
         {
-            var races = await _repository.Get();
+            var totalCounts = await _repository.CountRecords();
 
-            var dto = _mapper.Map<List<GetRaceDto>>(races);
+            var races = await _repository.Get(paginationDto);
+
+            var racesDto = _mapper.Map<List<GetRaceDto>>(races);
+
+            var dto = new PaginationResult<GetRaceDto>
+            {
+                TotalCount = totalCounts,
+                Results = racesDto
+            };
 
             return dto;
         }

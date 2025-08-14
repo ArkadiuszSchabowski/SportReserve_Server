@@ -2,6 +2,7 @@
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races_Db;
 using SportReserve_Races_Db.Entities;
+using SportReserve_Shared.Models.Pagination;
 
 namespace SportReserve_Races.Repositories
 {
@@ -19,9 +20,19 @@ namespace SportReserve_Races.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Race>> Get()
+        public async Task<int> CountRecords()
         {
-            return await _context.Races.Include(x => x.RaceTraces).ToListAsync();
+            return await _context.Races.CountAsync();
+        }
+
+        public async Task<List<Race>> Get(PaginationDto dto)
+        {
+            return await _context.Races
+                .OrderBy(x => x.DateOfStart)
+                .Skip((dto.PageNumber - 1) * dto.PageSize)
+                .Take(dto.PageSize)
+                .Include(x => x.RaceTraces)
+                .ToListAsync();
         }
 
         public async Task<Race?> Get(int id)
