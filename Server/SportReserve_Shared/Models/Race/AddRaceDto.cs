@@ -8,6 +8,6 @@ namespace SportReserve_Shared.Models.Race
         [MinLength(5, ErrorMessage = "Race name must be between 5 and 100 characters.")]
         [MaxLength(100, ErrorMessage = "Race name must be between 5 and 100 characters.")]
         public string Name { get; set; } = string.Empty;
-        public string? PosterUrl { get; set; }
+        public string? PosterUrl { get; set; } = "/images/default_poster.png";
     }
 }
