@@ -18,6 +18,10 @@ namespace SportReserve_Races_Db
                 .HasMany(r => r.RaceTraces)
                 .WithOne(t => t.Race)
                 .HasForeignKey(t => t.ParentRaceId);
+
+            modelBuilder.Entity<Race>()
+                .Property(r => r.PosterUrl)
+                .HasDefaultValue("images/default_poster.png");
         }  
 
     }
