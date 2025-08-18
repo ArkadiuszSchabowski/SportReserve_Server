@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	 <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
