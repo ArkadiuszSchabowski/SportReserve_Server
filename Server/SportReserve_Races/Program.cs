@@ -63,7 +63,7 @@ var app = builder.Build();
 
 app.UseCors("RacePolicy");
 
-//app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 using (var scope = app.Services.CreateScope())
 {
