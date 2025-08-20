@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
 using System.Text.Json;
 
@@ -15,7 +16,7 @@ namespace SportReserve_ApiGateway.Controllers
         private readonly IHttpResponseHelper _httpResponseHelper;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly JsonSerializerOptions _jsonOptions;
-        public RaceController(IHttpClientFactory httpClientFactory, IHttpResponseHelper httpResponseHelper, IHttpResponseValidator httpResponseValidator, IOptions<JsonOptions> jsonOptions)
+        public RaceController(IHttpClientFactory httpClientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IOptions<JsonOptions> jsonOptions)
         {
             _httpClientFactory = httpClientFactory;
             _httpResponseHelper = httpResponseHelper;
@@ -24,11 +25,17 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<GetRaceDto>>> GetRaces()
+        public async Task<ActionResult<PaginationResult<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
-            var response = await client.GetAsync("");
+            var requestUrl = QueryHelpers.AddQueryString("", new Dictionary<string, string?>
+            {
+                { "pageNumber", dto.PageNumber.ToString() },
+                { "pageSize", dto.PageSize.ToString() }
+            });
+
+            var response = await client.GetAsync(requestUrl);
 
             _httpResponseValidator.ThrowIfResponseIsNull(response);
 
@@ -41,9 +48,9 @@ namespace SportReserve_ApiGateway.Controllers
                 return actionResult;
             }
 
-            List<GetRaceDto>? races = JsonSerializer.Deserialize<List<GetRaceDto>>(responseBody, _jsonOptions);
+            PaginationResult<GetRaceDto>? result = JsonSerializer.Deserialize<PaginationResult<GetRaceDto>>(responseBody, _jsonOptions);
 
-            return Ok(races);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -79,7 +86,7 @@ namespace SportReserve_ApiGateway.Controllers
                 ["name"] = name
             };
 
-            var url = QueryHelpers.AddQueryString("name", query);
+            var url = QueryHelpers.AddQueryString("by-name", query);
 
             var response = await client.GetAsync(url);
 
