@@ -1,4 +1,4 @@
-﻿namespace SportReserve_Emails.Models
+﻿namespace SportReserve_Shared.Models.Email
 {
     public class SendEmailToAdminDto
     {
