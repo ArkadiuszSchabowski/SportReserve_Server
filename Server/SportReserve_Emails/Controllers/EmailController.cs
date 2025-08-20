@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportReserve_Emails.Interfaces;
-using SportReserve_Emails.Models;
+using SportReserve_Shared.Models.Email;
 
 namespace SportReserve_Emails.Controllers
 {
