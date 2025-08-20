@@ -1,9 +1,6 @@
 ﻿using SportReserve_Races.Interfaces;
 using SportReserve_Races_Db;
 using SportReserve_Races_Db.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SportReserve_Races.Seeders
 {
