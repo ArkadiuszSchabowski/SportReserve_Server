@@ -26,6 +26,11 @@ builder.Services.AddHttpClient("RaceService", client =>
     client.BaseAddress = new Uri("https://localhost:5002/api/race/");
 });
 
+builder.Services.AddHttpClient("EmailService", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:5003/api/email/");
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ApiGatewayPolicy", policy =>

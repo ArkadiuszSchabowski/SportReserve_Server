@@ -1,4 +1,6 @@
-﻿using SportReserve_Emails.Models;
+﻿
+
+using SportReserve_Shared.Models.Email;
 
 namespace SportReserve_Emails.Interfaces
 {
