@@ -16,10 +16,10 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
+        public async Task<ActionResult<PaginationResult<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
         {
-            var races = await _service.Get(dto);
-            return Ok(races);
+            var result = await _service.Get(dto);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
