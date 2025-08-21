@@ -38,6 +38,11 @@ namespace SportReserve_Races.CompositionRoot
             _validatorId.ValidateId(id);
         }
 
+        public void ThrowIfParentIdNotExist(Race? dto)
+        {
+            _raceTraceValidator.ThrowIfParentIdNotExist(dto);
+        }
+
         public void ValidateRaceTrace(AddRaceTraceDto? dto)
         {
             _raceTraceValidator.ValidateRaceTrace(dto);

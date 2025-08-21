@@ -26,6 +26,11 @@ builder.Services.AddHttpClient("RaceService", client =>
     client.BaseAddress = new Uri("https://localhost:5002/api/race/");
 });
 
+builder.Services.AddHttpClient("RaceTraceService", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:5002/api/racetrace/");
+});
+
 builder.Services.AddHttpClient("EmailService", client =>
 {
     client.BaseAddress = new Uri("https://localhost:5003/api/email/");

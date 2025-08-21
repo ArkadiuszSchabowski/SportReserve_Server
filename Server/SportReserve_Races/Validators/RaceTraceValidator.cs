@@ -24,6 +24,14 @@ namespace SportReserve_Races.Validators
             }
         }
 
+        public void ThrowIfParentIdNotExist(Race? dto)
+        {
+            if (dto == null)
+            {
+                throw new BadRequestException("Parent race id not found.");
+            }
+        }
+
         public void ValidateRaceTrace(AddRaceTraceDto? dto)
         {
             ThrowIfDtoIsNull(dto);
@@ -33,21 +41,10 @@ namespace SportReserve_Races.Validators
                 throw new BadRequestException("Location must be between 10 and 100 characters.");
             }
 
-            if (dto.DateOfStart < DateOnly.FromDateTime(DateTime.Now))
-            {
-                throw new BadRequestException("Incorrect date of start.");
-            }
-
 
             if (dto.DistanceKm < 0.1 || dto.DistanceKm > 200)
             {
                 throw new BadRequestException("Race distance must be between 0.1km and 200km.");
-            }
-
-
-            if (dto.IsRegistrationOpen == false)
-            {
-                throw new BadRequestException("Registration for this race is closed.");
             }
 
             if(dto.ParentRaceId < 1)

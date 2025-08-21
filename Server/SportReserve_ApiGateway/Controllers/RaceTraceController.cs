@@ -1,0 +1,114 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Models.Race;
+using System.Text.Json;
+
+namespace SportReserve_ApiGateway.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RaceTraceController : ControllerBase
+    {
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpResponseValidator _httpResponseValidator;
+        private readonly IHttpResponseHelper _httpResponseHelper;
+        private readonly JsonSerializerOptions _jsonOptions;
+
+        public RaceTraceController(IHttpClientFactory httpClientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IOptions<JsonOptions> jsonOptions)
+        {
+            _httpClientFactory = httpClientFactory;
+            _httpResponseValidator = httpResponseValidator;
+            _httpResponseHelper = httpResponseHelper;
+            _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<List<GetRaceTraceDto>>> Get()
+        {
+            var client = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var response = await client.GetAsync("");
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            List<GetRaceTraceDto>? result = JsonSerializer.Deserialize<List<GetRaceTraceDto>>(responseBody, _jsonOptions);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetRaceDto>> GetRaceTrace([FromRoute] int id)
+        {
+            var client = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var response = await client.GetAsync($"{id}");
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            GetRaceDto? race = JsonSerializer.Deserialize<GetRaceDto>(responseBody, _jsonOptions);
+
+            return Ok(race);
+        }
+
+        [HttpPost("add")]
+        public async Task<ActionResult> AddRaceTrace([FromBody] AddRaceTraceDto dto)
+        {
+            var client = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var response = await client.PostAsJsonAsync("add", dto);
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<string>> Remove([FromRoute] int id)
+        {
+            var client = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var response = await client.DeleteAsync($"{id}");
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return NoContent();
+        }
+    }
+}

@@ -2,34 +2,37 @@
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Races_Db.Entities;
 using SportReserve_Shared.Models.Race;
-using SportReserveServer.Interfaces;
 
 namespace SportReserve_Races.Services
 {
     public class RaceTraceService : IRaceTraceAggregateService
     {
-        private readonly IRepository<RaceTrace> _repository;
+        private readonly IRaceTraceAggregateRepository _raceTraceRepository;
         private readonly IRaceTraceAggregateValidator _validator;
         private readonly IMapper _mapper;
 
-        public RaceTraceService(IRepository<RaceTrace> repository, IRaceTraceAggregateValidator validator, IMapper mapper)
+        public RaceTraceService(IRaceTraceAggregateRepository raceTraceRepository, IRaceTraceAggregateValidator validator, IMapper mapper)
         {
-            _repository = repository;
+            _raceTraceRepository = raceTraceRepository;
             _validator = validator;
             _mapper = mapper;
         }
         public async Task Add(AddRaceTraceDto dto)
         {
+           var race = await _raceTraceRepository.GetParent(dto.ParentRaceId);
+
+            _validator.ThrowIfParentIdNotExist(race);
+
             _validator.ValidateRaceTrace(dto);
 
             RaceTrace raceDetails = _mapper.Map<RaceTrace>(dto);
 
-            await _repository.Add(raceDetails);
+            await _raceTraceRepository.Add(raceDetails);
         }
 
         public async Task<List<GetRaceTraceDto>> Get()
         {
-            var raceTraces = await _repository.Get();
+            var raceTraces = await _raceTraceRepository.Get();
 
             var dto = _mapper.Map<List<GetRaceTraceDto>>(raceTraces);
 
@@ -40,7 +43,7 @@ namespace SportReserve_Races.Services
         {
             _validator.ValidateId(id);
 
-            var raceTrace = await _repository.Get(id);
+            var raceTrace = await _raceTraceRepository.Get(id);
 
             _validator.ThrowIfEntityIsNull(raceTrace);
 
@@ -53,11 +56,11 @@ namespace SportReserve_Races.Services
         {
             _validator.ValidateId(id);
 
-            var raceTrace = await _repository.Get(id);
+            var raceTrace = await _raceTraceRepository.Get(id);
 
             _validator.ThrowIfEntityIsNull(raceTrace!);
 
-            await _repository.Remove(raceTrace!);
+            await _raceTraceRepository.Remove(raceTrace!);
         }
     }
 }
