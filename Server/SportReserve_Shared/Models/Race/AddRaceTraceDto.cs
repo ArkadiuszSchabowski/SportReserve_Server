@@ -9,16 +9,12 @@ namespace SportReserve_Shared.Models.Race
         [MaxLength(100, ErrorMessage = "Location must be between 10 and 100 characters.")]
         public string Location { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Date of start is required.")]
-        public DateOnly DateOfStart { get; set; }
-
         [Required(ErrorMessage = "Hour of start is required.")]
         public TimeOnly HourOfStart { get; set; }
 
         [Required(ErrorMessage = "Distance is required.")]
         [Range(0.1, 200, ErrorMessage = "Race distance must be between 0.1km and 200km.")]
         public double DistanceKm { get; set; }
-        public double? EntryFeeGBP { get; set; }
         public int? Slots { get; set; }
         public bool IsRegistrationOpen { get; set; } = true;
 
