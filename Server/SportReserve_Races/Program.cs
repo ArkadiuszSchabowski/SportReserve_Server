@@ -41,7 +41,7 @@ builder.Services.AddScoped<IRaceAggregateService, RaceService>();
 builder.Services.AddScoped<IRaceTraceAggregateService, RaceTraceService>();
 
 builder.Services.AddScoped<IRaceAggregateRepository, RaceRepository>();
-builder.Services.AddScoped<IRepository<RaceTrace>, RaceTraceRepository>();
+builder.Services.AddScoped<IRaceTraceAggregateRepository, RaceTraceRepository>();
 
 builder.Services.AddScoped<IRaceAggregateValidator, RaceAggregateValidator>();
 builder.Services.AddScoped<IRaceTraceAggregateValidator, RaceTraceAggregateValidator>();
