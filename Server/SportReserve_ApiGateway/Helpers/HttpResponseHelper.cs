@@ -6,17 +6,23 @@ namespace SportReserve_ApiGateway.Helpers
 {
     public class HttpResponseHelper : IHttpResponseHelper
     {
-        public ActionResult? HandleErrorResponse(HttpResponseMessage response, string responseBody)
-        {
-            if (!response.IsSuccessStatusCode)
+            public ActionResult? HandleErrorResponse(HttpResponseMessage response, string responseBody)
             {
-                return new ObjectResult(new ErrorResponseDto
+                if (!response.IsSuccessStatusCode)
                 {
-                    StatusCode = (int)response.StatusCode,
-                    Message = responseBody
-                });
+                    var errorResponse = new ErrorResponseDto
+                    {
+                        StatusCode = (int)response.StatusCode,
+                        Message = responseBody
+                    };
+
+                    return new ObjectResult(errorResponse)
+                    {
+                        StatusCode = (int)response.StatusCode
+                    };
+                }
+                return null;
             }
-            return null;
         }
     }
-}
+

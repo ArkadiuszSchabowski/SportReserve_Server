@@ -120,6 +120,27 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok();
         }
 
+        [HttpPost("register/step1/validate")]
+        public async Task<ActionResult> ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        {
+            var client = _httpClientFactory.CreateClient("UserService");
+
+            var response = await client.PostAsJsonAsync("register/step1/validate", dto);
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return Ok();
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
