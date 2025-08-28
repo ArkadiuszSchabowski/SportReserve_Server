@@ -126,6 +126,26 @@ namespace SportReserve_ApiGateway.Controllers
 
             return Ok();
         }
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> UpdateRace([FromBody] AddRaceDto dto, [FromRoute] int id)
+        {
+            var client = _httpClientFactory.CreateClient("RaceService");
+
+            var response = await client.PutAsJsonAsync($"update/{id}", dto);
+
+            _httpResponseValidator.ThrowIfResponseIsNull(response);
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
+
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
+            return Ok();
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<string>> Remove([FromRoute] int id)

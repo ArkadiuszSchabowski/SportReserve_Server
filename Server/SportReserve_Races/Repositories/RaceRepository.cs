@@ -50,5 +50,9 @@ namespace SportReserve_Races.Repositories
             _context.Races.Remove(race);
             await _context.SaveChangesAsync();
         }
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
