@@ -43,6 +43,13 @@ namespace SportReserve_Races.Controllers
             return Ok();
         }
 
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult> Add([FromBody] AddRaceDto dto, [FromRoute] int id)
+        {
+            await _service.Update(id, dto);
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Remove([FromRoute] int id)
         {

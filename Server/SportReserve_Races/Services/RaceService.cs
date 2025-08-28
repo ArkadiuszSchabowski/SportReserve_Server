@@ -82,5 +82,19 @@ namespace SportReserve_Races.Services
 
             await _repository.Remove(race!);
         }
+
+        public async Task Update(int id, AddRaceDto dto)
+        {
+            _validator.ValidateId(id);
+            _validator.ValidateRace(dto);
+
+            var race = await _repository.Get(id);
+
+            _validator.ThrowIfEntityIsNull(race);
+
+            _mapper.Map(dto, race);
+
+            await _repository.SaveChangesAsync();
+        }
     }
 }
