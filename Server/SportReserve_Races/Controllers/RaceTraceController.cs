@@ -28,7 +28,7 @@ namespace SportReserve_Races.Controllers
             return Ok(raceTrace);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<ActionResult> Add([FromBody] AddRaceTraceDto dto)
         {
             await _service.Add(dto);

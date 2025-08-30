@@ -23,7 +23,7 @@ namespace SportReserve_ApiGateway.Controllers
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<List<GetUserDto>>> GetUsers()
         {
             var client = _httpClientFactory.CreateClient("UserService");

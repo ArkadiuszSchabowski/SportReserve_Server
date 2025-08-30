@@ -23,7 +23,7 @@ namespace SportReserve_ApiGateway.Controllers
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<List<GetRaceTraceDto>>> Get()
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
@@ -69,12 +69,12 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(race);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<ActionResult> AddRaceTrace([FromBody] AddRaceTraceDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
 
-            var response = await client.PostAsJsonAsync("add", dto);
+            var response = await client.PostAsJsonAsync("", dto);
 
             _httpResponseValidator.ThrowIfResponseIsNull(response);
 

@@ -24,7 +24,7 @@ namespace SportReserve_ApiGateway.Controllers
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult<PaginationResult<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
@@ -106,12 +106,12 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok(result);
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public async Task<ActionResult> AddRace([FromBody] AddRaceDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
-            var response = await client.PostAsJsonAsync("add", dto);
+            var response = await client.PostAsJsonAsync("", dto);
 
             _httpResponseValidator.ThrowIfResponseIsNull(response);
 
