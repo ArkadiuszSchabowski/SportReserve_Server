@@ -126,12 +126,12 @@ namespace SportReserve_ApiGateway.Controllers
 
             return Ok();
         }
-        [HttpPut("update/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateRace([FromBody] AddRaceDto dto, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
-            var response = await client.PutAsJsonAsync($"update/{id}", dto);
+            var response = await client.PutAsJsonAsync($"{id}", dto);
 
             _httpResponseValidator.ThrowIfResponseIsNull(response);
 
