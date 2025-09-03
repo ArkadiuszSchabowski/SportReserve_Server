@@ -1,10 +1,10 @@
-﻿using SportReserve_Races.Interfaces;
-using SportReserve_Races_Db;
+﻿using SportReserve_Races_Db;
 using SportReserve_Races_Db.Entities;
+using SportReserve_Shared.Interfaces;
 
 namespace SportReserve_Races.Seeders
 {
-    public class RaceSeeder : IRaceSeeder
+    public class RaceSeeder : ISeeder
     {
         private readonly RaceDbContext _context;
 
