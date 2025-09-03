@@ -43,6 +43,7 @@ namespace SportReserve_Users.Services
             var passwordHash = _passwordHasher.HashPassword(newUser, dto.Password);
 
             newUser.PasswordHash = passwordHash;
+            newUser.RoleId = 1;
 
             await _repository.Add(newUser);
 
@@ -65,6 +66,7 @@ namespace SportReserve_Users.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role!.Name)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));

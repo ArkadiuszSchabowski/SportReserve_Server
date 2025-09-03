@@ -11,6 +11,7 @@ using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users.RabbitMq;
 using SportReserve_Users.Repositories;
+using SportReserve_Users.Seeders;
 using SportReserve_Users.Services;
 using SportReserve_Users.Validators;
 using SportReserve_Users_Db;
@@ -81,6 +82,8 @@ builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
 builder.Services.AddScoped<IValidatorId, ValidatorId>();
 
+builder.Services.AddScoped<RoleSeeder>();
+builder.Services.AddScoped<UserSeeder>();
 builder.Services.AddScoped<IProducerUser, ProducerUser>();
 
 var app = builder.Build();
@@ -88,6 +91,19 @@ var app = builder.Build();
 app.UseCors("UserPolicy");
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<UserDbContext>();
+    context.Database.Migrate();
+
+    var roleSeeder = services.GetRequiredService<RoleSeeder>();
+    roleSeeder.SeedData();
+
+    var userSeeder = services.GetRequiredService<UserSeeder>();
+    userSeeder.SeedData();
+}
 
 if (app.Environment.IsDevelopment())
 {

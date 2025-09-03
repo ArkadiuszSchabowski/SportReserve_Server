@@ -11,5 +11,7 @@ namespace SportReserve_Users_Db.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public Gender Gender { get; set; }
         public DateOnly DateOfBirth { get; set; }
+        public virtual Role? Role { get; set; }
+        public int RoleId { get; set; }
     }
 }

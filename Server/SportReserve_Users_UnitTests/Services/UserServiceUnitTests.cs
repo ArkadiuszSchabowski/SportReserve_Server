@@ -126,6 +126,12 @@ namespace SportReserveServerUnitTests.Services
 
             var dto = new LoginDto { Email = "jamesbrown@gmail.com", Password = "James123" };
 
+            var role = new Role
+            {
+                Id = 1,
+                Name = "User"
+            };
+
             var user = new User()
             {
                 Id = 1,
@@ -134,8 +140,12 @@ namespace SportReserveServerUnitTests.Services
                 Surname = "Brown",
                 Gender = Gender.Male,
                 PasswordHash = "123XYZ",
-                DateOfBirth = DateOnly.Parse("01.01.1990")
+                DateOfBirth = DateOnly.Parse("01.01.1990"),
+                RoleId = 1,
+                Role = role
             };
+
+            
 
             _mockRepository.Setup(x => x.Get(dto.Email)).ReturnsAsync(user);
             _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.Password)).Returns(PasswordVerificationResult.Success);
