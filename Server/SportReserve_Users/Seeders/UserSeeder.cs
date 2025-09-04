@@ -32,7 +32,7 @@ namespace SportReserve_Users.Seeders
                     {
                         Name = "John",
                         Surname = "User",
-                        Email = "johnuser@gmail.com",
+                        Email = "user@gmail.com",
                         Gender = Gender.Male,
                         DateOfBirth = new DateOnly(1990, 01, 01),
                         RoleId = 1,
@@ -44,7 +44,7 @@ namespace SportReserve_Users.Seeders
                     {
                         Name = "John",
                         Surname = "Moderator",
-                        Email = "johnmoderator@gmail.com",
+                        Email = "moderator@gmail.com",
                         Gender = Gender.Male,
                         DateOfBirth = new DateOnly(1990, 01, 01),
                         RoleId = 2,
@@ -55,8 +55,8 @@ namespace SportReserve_Users.Seeders
                     var admin = new User
                     {
                         Name = "John",
-                        Surname = "Moderator",
-                        Email = "johnadmin@gmail.com",
+                        Surname = "Admin",
+                        Email = "admin@gmail.com",
                         Gender = Gender.Male,
                         DateOfBirth = new DateOnly(1990, 01, 01),
                         RoleId = 3,
