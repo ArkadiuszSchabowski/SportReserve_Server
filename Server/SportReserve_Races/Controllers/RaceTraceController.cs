@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Shared.Models.Race;
 
@@ -29,12 +30,14 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "moderator,admin")]
         public async Task<ActionResult> Add([FromBody] AddRaceTraceDto dto)
         {
             await _service.Add(dto);
             return Ok();
         }
 
+        [Authorize(Roles = "moderator,admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Remove([FromRoute] int id)
         {

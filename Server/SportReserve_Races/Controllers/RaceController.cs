@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportReserve_Races.Interfaces.Aggregates;
 using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
@@ -37,6 +38,7 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "moderator,admin")]
         public async Task<ActionResult> Add([FromBody] AddRaceDto dto)
         {
             await _service.Add(dto);
@@ -44,6 +46,7 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "moderator,admin")]
         public async Task<ActionResult> Add([FromBody] AddRaceDto dto, [FromRoute] int id)
         {
             await _service.Update(id, dto);
@@ -51,6 +54,7 @@ namespace SportReserve_Races.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "moderator,admin")]
         public async Task<ActionResult> Remove([FromRoute] int id)
         {
             await _service.Remove(id);

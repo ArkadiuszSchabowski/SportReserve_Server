@@ -16,10 +16,22 @@ namespace SportReserve_ApiGateway.Middleware
                 await context.Response.WriteAsync(e.Message);
             }
 
+            catch (UnauthorizedException)
+            {
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync("Please log in to access this resource.");
+            }
+
+            catch (ForbiddenException)
+            {
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync("You don't have permission to perform this action.");
+            }
+
             catch (Exception)
             {
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Błąd serwera!");
+                await context.Response.WriteAsync("Server error!");
             }
         }
     }
