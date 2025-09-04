@@ -23,14 +23,14 @@ namespace SportReserve_Users.Seeders
                     {
                         new Role()
                         {
-                            Name = "User"
+                            Name = "user"
                         },
                         new Role() {
-                            Name = "Moderator"
+                            Name = "moderator"
                         },
                         new Role()
                         {
-                            Name = "Admin"
+                            Name = "admin"
                         }
                     };
 
