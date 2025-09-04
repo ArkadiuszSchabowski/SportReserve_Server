@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces.Aggregates;
 using SportReserve_Users.Models;
@@ -17,6 +18,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<List<GetUserDto>>> Get()
         {
             var users = await _service.Get();
@@ -24,6 +26,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<GetUserDto>> Get([FromRoute] int id)
         {
             var user = await _service.Get(id);
@@ -31,6 +34,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpGet("by-email")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
             var user = await _service.GetByEmail(email);
@@ -58,6 +62,7 @@ namespace SportReserve_Users.Controllers
             return Ok(token);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Remove([FromRoute] int id)
         {

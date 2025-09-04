@@ -31,8 +31,6 @@ builder.Services
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-var authenticationSettings = new AuthenticationSettings();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("UserPolicy", policy =>
@@ -42,6 +40,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+var authenticationSettings = new AuthenticationSettings();
 
 builder.Services.AddSingleton(authenticationSettings);
 builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
@@ -88,9 +88,9 @@ builder.Services.AddScoped<IProducerUser, ProducerUser>();
 
 var app = builder.Build();
 
-app.UseCors("UserPolicy");
-
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseCors("UserPolicy");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -113,6 +113,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
