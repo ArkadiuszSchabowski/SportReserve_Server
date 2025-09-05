@@ -24,9 +24,10 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetUserDto>>> GetUsers()
+        public async Task<ActionResult<List<GetUserDto>>> GetUsers([FromHeader(Name = "Authorization")] string? authorizationHeader)
         {
             var client = _httpClientFactory.CreateClient("UserService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var response = await client.GetAsync("");
 
@@ -47,9 +48,10 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetUserDto>> GetUser([FromRoute] int id)
+        public async Task<ActionResult<GetUserDto>> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var response = await client.GetAsync($"{id}");
 
@@ -70,9 +72,10 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("by-email")]
-        public async Task<ActionResult<GetUserDto>> GetUser([FromQuery] string email)
+        public async Task<ActionResult<GetUserDto>> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromQuery] string email)
         {
             var client = _httpClientFactory.CreateClient("UserService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var query = new Dictionary<string, string?>()
             {
@@ -171,9 +174,10 @@ namespace SportReserve_ApiGateway.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> Remove([FromRoute] int id)
+        public async Task<ActionResult<string>> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var response = await client.DeleteAsync($"{id}");
 

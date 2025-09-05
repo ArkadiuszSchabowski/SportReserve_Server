@@ -70,9 +70,10 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddRaceTrace([FromBody] AddRaceTraceDto dto)
+        public async Task<ActionResult> AddRaceTrace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceTraceDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var response = await client.PostAsJsonAsync("", dto);
 
@@ -91,9 +92,10 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> Remove([FromRoute] int id)
+        public async Task<ActionResult<string>> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
+            client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
 
             var response = await client.DeleteAsync($"{id}");
 
