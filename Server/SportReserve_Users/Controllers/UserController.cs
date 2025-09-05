@@ -26,7 +26,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<ActionResult<GetUserDto>> Get([FromRoute] int id)
         {
             var user = await _service.Get(id);
@@ -34,7 +34,7 @@ namespace SportReserve_Users.Controllers
         }
 
         [HttpGet("by-email")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<ActionResult<GetUserDto>> Get([FromQuery] string email)
         {
             var user = await _service.GetByEmail(email);
@@ -62,8 +62,8 @@ namespace SportReserve_Users.Controllers
             return Ok(token);
         }
 
-        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Remove([FromRoute] int id)
         {
             await _service.Remove(id);
