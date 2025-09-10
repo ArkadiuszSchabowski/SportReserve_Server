@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportReserve_Races_Db;
 
@@ -11,9 +12,11 @@ using SportReserve_Races_Db;
 namespace SportReserve_Races_Db.Migrations
 {
     [DbContext(typeof(RaceDbContext))]
-    partial class RaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250910163410_MoveIsRegistrationOpenToRace")]
+    partial class MoveIsRegistrationOpenToRace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
