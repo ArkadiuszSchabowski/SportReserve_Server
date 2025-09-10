@@ -46,5 +46,10 @@ namespace SportReserve_Races.CompositionRoot
         {
             _raceValidator.ValidateRace(entity);
         }
+
+        public void ValidateUpdatedRace(UpdateRaceDto? dto)
+        {
+            _raceValidator.ValidateUpdatedRace(dto);
+        }
     }
 }

@@ -83,10 +83,10 @@ namespace SportReserve_Races.Services
             await _repository.Remove(race!);
         }
 
-        public async Task Update(int id, AddRaceDto dto)
+        public async Task Update(int id, UpdateRaceDto dto)
         {
             _validator.ValidateId(id);
-            _validator.ValidateRace(dto);
+            _validator.ValidateUpdatedRace(dto);
 
             var race = await _repository.Get(id);
 

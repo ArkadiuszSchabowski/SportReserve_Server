@@ -55,5 +55,28 @@ namespace SportReserve_Races.Validators
                 throw new BadRequestException($"Race start date is after the allowed maximum date of 2035-01-01.");
             }
         }
+
+        public void ValidateUpdatedRace(UpdateRaceDto? dto)
+        {
+
+            if (string.IsNullOrWhiteSpace(dto!.Name) || dto.Name.Length < 5 || dto.Name.Length > 100)
+            {
+                throw new BadRequestException("Race name must be between 5 and 100 characters.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto!.Description) || dto.Description.Length < 400 || dto.Description.Length > 1000)
+            {
+                throw new BadRequestException("Description must be between 400 and 1000 characters.");
+            }
+
+            if (dto.DateOfStart < DateOnly.FromDateTime(DateTime.Now))
+            {
+                throw new BadRequestException("Race start date cannot be in the past.");
+            }
+            if (dto.DateOfStart > DateOnly.Parse("2035-01-01"))
+            {
+                throw new BadRequestException($"Race start date is after the allowed maximum date of 2035-01-01.");
+            }
+        }
     }
 }
