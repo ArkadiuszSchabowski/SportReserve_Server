@@ -7,7 +7,6 @@
         public TimeOnly HourOfStart { get; set; }
         public double DistanceKm { get; set; }
         public int? Slots { get; set; }
-        public bool IsRegistrationOpen { get; set; } = true;
         public virtual Race? Race { get; set; }
         public int ParentRaceId { get; set; }
     }

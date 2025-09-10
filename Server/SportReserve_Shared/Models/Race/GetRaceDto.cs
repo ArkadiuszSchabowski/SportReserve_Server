@@ -8,6 +8,7 @@
         public string Description { get; set; } = string.Empty;
         public string? PosterUrl { get; set; }
         public double? EntryFeeGBP { get; set; }
+        public bool? IsRegistrationOpen { get; set; }
         public List<GetRaceTraceDto> RaceTraces { get; set; } = new ();
     }
 }

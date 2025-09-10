@@ -18,5 +18,6 @@ namespace SportReserve_Shared.Models.Race
         public string Description { get; set; } = string.Empty;
         public string? PosterUrl { get; set; } = "/images/default_poster.png";
         public double? EntryFeeGBP { get; set; }
+        public bool IsRegistrationOpen { get; set; } = false;
     }
 }

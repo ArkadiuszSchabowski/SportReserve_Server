@@ -32,7 +32,8 @@ namespace SportReserve_Races.Seeders
                                 new RaceTrace { Location = "Manchester, Heaton Park", DistanceKm = 10, HourOfStart = new TimeOnly(12, 0) },
                                 new RaceTrace { Location = "Manchester, Heaton Park", DistanceKm = 15, HourOfStart = new TimeOnly(14, 0) }
                             },
-                            PosterUrl = "images/run_for_the_animal_shelter_poster.png"
+                            PosterUrl = "images/run_for_the_animal_shelter_poster.png",
+                            IsRegistrationOpen = true
                         },
                         new Race
                         {
@@ -46,19 +47,8 @@ namespace SportReserve_Races.Seeders
                                 new RaceTrace { Location = "Liverpool: Albert Dock", DistanceKm = 5, HourOfStart = new TimeOnly(18, 0) },
                                 new RaceTrace { Location = "Newcastle: Quayside", DistanceKm = 5, HourOfStart = new TimeOnly(18, 0) },
                                 new RaceTrace { Location = "Brighton: Preston Park", DistanceKm = 5, HourOfStart = new TimeOnly(18, 0) }
-                            }
-                        },
-                        new Race
-                        {
-                            Name = "London Half-Marathon Race",
-                            Description = "Dreaming of a race in the heart of London? The London Half-Marathon Race is your chance! The route will take you past iconic landmarks like Big Ben and the Tower of London, offering a breathtaking tour of the city. The entry fee is £25. During registration, you can choose your t-shirt size from S, M, L, or XL. This is an excellent opportunity to test your endurance and feel the true spirit of London running, surrounded by thousands of fellow runners and cheering crowds. Join us for an unforgettable experience that combines athletic challenge with the unique energy of one of the world's greatest capitals.",
-                            DateOfStart = new DateOnly(2026, 3, 10),
-                            EntryFeeGBP = 25,
-                            PosterUrl = "images/london_half_marathon_race_poster.png",
-                            RaceTraces = new List<RaceTrace>
-                            {
-                                new RaceTrace { Location = "London, Green Park", DistanceKm = 21.1, HourOfStart = new TimeOnly(10, 0) }
-                            }
+                            },
+                            IsRegistrationOpen = true
                         },
                          new Race
                         {
@@ -70,7 +60,21 @@ namespace SportReserve_Races.Seeders
                             RaceTraces = new List<RaceTrace>
                             {
                                 new RaceTrace { Location = "Bristol, Harbourside", DistanceKm = 10, HourOfStart = new TimeOnly(10, 0) }
-                            }
+                            },
+                            IsRegistrationOpen = true
+                        },
+                        new Race
+                        {
+                            Name = "London Half-Marathon Race",
+                            Description = "Dreaming of a race in the heart of London? The London Half-Marathon Race is your chance! The route will take you past iconic landmarks like Big Ben and the Tower of London, offering a breathtaking tour of the city. The entry fee is £25. During registration, you can choose your t-shirt size from S, M, L, or XL. This is an excellent opportunity to test your endurance and feel the true spirit of London running, surrounded by thousands of fellow runners and cheering crowds. Join us for an unforgettable experience that combines athletic challenge with the unique energy of one of the world's greatest capitals.",
+                            DateOfStart = new DateOnly(2026, 3, 10),
+                            EntryFeeGBP = 25,
+                            PosterUrl = "images/london_half_marathon_race_poster.png",
+                            RaceTraces = new List<RaceTrace>
+                            {
+                                new RaceTrace { Location = "London, Green Park", DistanceKm = 21.1, HourOfStart = new TimeOnly(10, 0) }
+                            },
+                            IsRegistrationOpen = true
                         },
                         new Race
                         {
