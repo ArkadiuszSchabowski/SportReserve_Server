@@ -10,6 +10,7 @@ namespace SportReserve_Users
         {
             CreateMap<Race, GetRaceDto>();
             CreateMap<AddRaceDto, Race>();
+            CreateMap<UpdateRaceDto, Race>();
             CreateMap<RaceTrace, GetRaceTraceDto>();
             CreateMap<AddRaceTraceDto, RaceTrace>();
         }
