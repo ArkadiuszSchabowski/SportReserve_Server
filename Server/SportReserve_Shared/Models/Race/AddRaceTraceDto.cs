@@ -16,7 +16,6 @@ namespace SportReserve_Shared.Models.Race
         [Range(0.1, 200, ErrorMessage = "Race distance must be between 0.1km and 200km.")]
         public double DistanceKm { get; set; }
         public int? Slots { get; set; }
-        public bool IsRegistrationOpen { get; set; } = true;
 
         [Required(ErrorMessage = "Parent race id is required.")]
         public int ParentRaceId { get; set; }
