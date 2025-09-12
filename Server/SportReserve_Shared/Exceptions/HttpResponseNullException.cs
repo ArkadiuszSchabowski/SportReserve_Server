@@ -1,4 +1,4 @@
-﻿namespace SportReserve_ApiGateway.Exceptions
+﻿namespace SportReserve_Shared.Exceptions
 {
     public class HttpResponseNullException : Exception
     {

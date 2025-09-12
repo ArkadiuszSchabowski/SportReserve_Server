@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.Race;
 using System.Text.Json;
 

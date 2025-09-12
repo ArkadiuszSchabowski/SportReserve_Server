@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_ApiGateway.Interfaces;
+using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.Email;
 
 namespace SportReserve_ApiGateway.Controllers

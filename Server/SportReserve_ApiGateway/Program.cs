@@ -1,6 +1,6 @@
 using SportReserve_ApiGateway.Helpers;
-using SportReserve_ApiGateway.Interfaces;
 using SportReserve_ApiGateway.Validators;
+using SportReserve_Shared.Interfaces;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
