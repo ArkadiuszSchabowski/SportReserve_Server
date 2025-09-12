@@ -1,5 +1,5 @@
-﻿using SportReserve_ApiGateway.Exceptions;
-using SportReserve_ApiGateway.Interfaces;
+﻿using SportReserve_Shared.Exceptions;
+using SportReserve_Shared.Interfaces;
 
 namespace SportReserve_ApiGateway.Validators
 {

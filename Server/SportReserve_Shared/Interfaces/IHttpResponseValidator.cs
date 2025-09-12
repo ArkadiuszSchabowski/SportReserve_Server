@@ -1,4 +1,4 @@
-﻿namespace SportReserve_ApiGateway.Interfaces
+﻿namespace SportReserve_Shared.Interfaces
 {
     public interface IHttpResponseValidator
     {
