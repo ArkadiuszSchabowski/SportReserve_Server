@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SportReserve_ApiGateway.Exceptions;
 using SportReserve_Shared.Exceptions;
 
 namespace SportReserve_Shared.Middleware
