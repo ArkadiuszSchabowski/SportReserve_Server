@@ -47,7 +47,7 @@ builder.Services.AddAuthentication(option =>
 });
 
 builder.Services.AddScoped<IReservationAccess, ReservationAccess>();
-builder.Services.AddScoped<IReservationService<AnimalShelterRace>, ReservationService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
 
 builder.Services.AddScoped<IHttpResponseValidator, HttpResponseValidator>();
 builder.Services.AddScoped<IHttpResponseHelper, HttpResponseHelper>();

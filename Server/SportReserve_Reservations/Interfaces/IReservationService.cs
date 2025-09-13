@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_Shared.Models.Reservation.Base;
+using SportReserve_Shared.Models.Reservation;
 
 namespace SportReserve_Reservations.Interfaces
 {
-    public interface IReservationService<T> where T : BaseRace
+    public interface IReservationService
     {
-        Task<IActionResult?> Add(T reservation, string userIdFromToken);
+        Task AddAnimalShelterRace(AnimalShelterRace reservation, string userIdFromToken);
+        Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken);
+        Task AddValentineRace(ValentineRace reservation, string userIdFromToken);
     }
 }

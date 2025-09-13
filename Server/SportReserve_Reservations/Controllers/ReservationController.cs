@@ -10,20 +10,42 @@ namespace SportReserve_Reservations.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private readonly IReservationService<AnimalShelterRace> _reservationService;
+        private readonly IReservationService _service;
 
-        public ReservationController(IReservationService<AnimalShelterRace> reservationService)
+        public ReservationController(IReservationService service)
         {
-            _reservationService = reservationService;
+            _service = service;
         }
 
         [Authorize]
         [HttpPost("animal-shelter-race")]
-        public async Task<IActionResult> Add(AnimalShelterRace reservation)
+        public async Task<IActionResult> AddAnimalShelterRace(AnimalShelterRace reservation)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _reservationService.Add(reservation, userIdFromToken!);
+            await _service.AddAnimalShelterRace(reservation, userIdFromToken!);
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("valentine-race")]
+        public async Task<IActionResult> AddValentineRace(ValentineRace reservation)
+        {
+            var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _service.AddValentineRace(reservation, userIdFromToken!);
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("london-half-marathon-race")]
+        public async Task<IActionResult> AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation)
+        {
+            var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _service.AddLondonHalfMarathonRace(reservation, userIdFromToken!);
 
             return Ok();
         }

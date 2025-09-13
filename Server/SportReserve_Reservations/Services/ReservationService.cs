@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace SportReserve_Reservations.Services
 {
-    public class ReservationService : IReservationService<AnimalShelterRace>
+    public class ReservationService : IReservationService
     {
         private readonly IReservationAccess _reservationAccess;
         private readonly IHttpClientFactory _httpClientFactory;
@@ -26,7 +26,7 @@ namespace SportReserve_Reservations.Services
             _httpResponseHelper = httpResponseHelper;
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
-        public async Task<IActionResult?> Add(AnimalShelterRace reservation, string userIdFromToken)
+        public async Task AddAnimalShelterRace(AnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
 
@@ -75,6 +75,114 @@ namespace SportReserve_Reservations.Services
             }
 
             var collection = _reservationAccess.ConnectToMongo<AnimalShelterRace>(collectionName);
+            await collection.InsertOneAsync(reservation);
+
+            return null;
+        }
+
+        public async Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken)
+        {
+            string collectionName = "reservations";
+
+            var raceClient = _httpClientFactory.CreateClient("RaceService");
+            var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var raceTask = raceClient.GetAsync($"{reservation.RaceId}");
+            var raceTraceTask = raceTraceClient.GetAsync($"{reservation.RaceTraceId}");
+
+            await Task.WhenAll(raceTask, raceTraceTask);
+
+            var raceHttpResponse = await raceTask;
+            var raceTraceHttpResponse = await raceTraceTask;
+
+            _httpResponseValidator.ThrowIfResponseIsNull(raceHttpResponse);
+            _httpResponseValidator.ThrowIfResponseIsNull(raceTraceHttpResponse);
+
+            var raceResponseBody = await raceHttpResponse.Content.ReadAsStringAsync();
+            var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
+
+            var actionResultRaceError = _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
+
+            if (actionResultRaceError != null)
+            {
+                return actionResultRaceError;
+            }
+
+            var actionResultRaceTraceError = _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
+
+            if (actionResultRaceTraceError != null)
+            {
+                return actionResultRaceTraceError;
+            }
+
+            var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
+            var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
+
+            if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
+            {
+                throw new BadRequestException("Race does not contain the specified race trace.");
+            }
+
+            if (reservation.UserId.ToString() != userIdFromToken)
+            {
+                throw new ForbiddenException("Cannot create a reservation for another user.");
+            }
+
+            var collection = _reservationAccess.ConnectToMongo<LondonHalfMarathonRace>(collectionName);
+            await collection.InsertOneAsync(reservation);
+
+            return null;
+        }
+
+        public async Task AddValentineRace(ValentineRace reservation, string userIdFromToken)
+        {
+            string collectionName = "reservations";
+
+            var raceClient = _httpClientFactory.CreateClient("RaceService");
+            var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
+
+            var raceTask = raceClient.GetAsync($"{reservation.RaceId}");
+            var raceTraceTask = raceTraceClient.GetAsync($"{reservation.RaceTraceId}");
+
+            await Task.WhenAll(raceTask, raceTraceTask);
+
+            var raceHttpResponse = await raceTask;
+            var raceTraceHttpResponse = await raceTraceTask;
+
+            _httpResponseValidator.ThrowIfResponseIsNull(raceHttpResponse);
+            _httpResponseValidator.ThrowIfResponseIsNull(raceTraceHttpResponse);
+
+            var raceResponseBody = await raceHttpResponse.Content.ReadAsStringAsync();
+            var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
+
+            var actionResultRaceError = _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
+
+            if (actionResultRaceError != null)
+            {
+                return actionResultRaceError;
+            }
+
+            var actionResultRaceTraceError = _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
+
+            if (actionResultRaceTraceError != null)
+            {
+                return actionResultRaceTraceError;
+            }
+
+            var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
+            var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
+
+            if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
+            {
+                throw new BadRequestException("Race does not contain the specified race trace.");
+            }
+
+            if (reservation.UserId.ToString() != userIdFromToken)
+            {
+                throw new ForbiddenException("Cannot create a reservation for another user.");
+            }
+
+            var collection = _reservationAccess.ConnectToMongo<ValentineRace>(collectionName);
             await collection.InsertOneAsync(reservation);
 
             return null;
