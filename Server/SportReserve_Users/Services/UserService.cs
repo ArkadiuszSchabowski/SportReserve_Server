@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces;
 using SportReserve_Users.Interfaces.Aggregates;
-using SportReserve_Users.Models;
 using SportReserve_Users_Db.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

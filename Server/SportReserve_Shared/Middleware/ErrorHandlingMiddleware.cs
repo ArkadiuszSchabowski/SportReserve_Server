@@ -16,6 +16,11 @@ namespace SportReserve_Shared.Middleware
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch (HttpResponseNullException e)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(e.Message);
+            }
 
             catch (UnauthorizedException)
             {
@@ -38,6 +43,11 @@ namespace SportReserve_Shared.Middleware
             {
                 context.Response.StatusCode = 409;
                 await context.Response.WriteAsync(e.Message);
+            }
+            catch (HttpRequestException httpException)
+            {
+                context.Response.StatusCode = (int)httpException.StatusCode!;
+                await context.Response.WriteAsync(httpException.Message);
             }
             catch (Exception)
             {

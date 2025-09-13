@@ -7,6 +7,7 @@ using SportReserve_Reservations.Interfaces;
 using SportReserve_Reservations.Services;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Middleware;
+using SportReserve_Shared.Models.Reservation;
 using System.Text;
 using System.Text.Json.Serialization;
 

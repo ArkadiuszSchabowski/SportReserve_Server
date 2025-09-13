@@ -1,6 +1,7 @@
 using SportReserve_ApiGateway.Helpers;
 using SportReserve_ApiGateway.Validators;
 using SportReserve_Shared.Interfaces;
+using SportReserve_Shared.Middleware;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,7 +50,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IHttpResponseValidator, HttpResponseValidator>();
 builder.Services.AddScoped<IHttpResponseHelper, HttpResponseHelper>();
 
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseCors("ApiGatewayPolicy");
 

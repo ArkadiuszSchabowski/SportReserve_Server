@@ -1,15 +1,9 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using SportReserve_Shared.Models.Reservation.Base;
 
 namespace SportReserve_Shared.Models.Reservation
 {
-    public class AnimalShelterRace
+    public class AnimalShelterRace : BaseRace
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; } = string.Empty;
-        public int UserId { get; set; }
-        public int RaceId { get; set; }
         public int RaceTraceId { get; set; }
         public string? DogSize { get; set; }
         public int? DonationAmount { get; set; }

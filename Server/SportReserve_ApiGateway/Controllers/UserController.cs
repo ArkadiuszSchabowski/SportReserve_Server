@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.User;
 using System.Text.Json;
@@ -24,7 +25,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetUserDto>>> GetUsers([FromHeader(Name = "Authorization")] string? authorizationHeader)
+        public async Task<IActionResult> GetUsers([FromHeader(Name = "Authorization")] string? authorizationHeader)
         {
             var client = _httpClientFactory.CreateClient("UserService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -35,12 +36,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             List<GetUserDto>? users = JsonSerializer.Deserialize<List<GetUserDto>>(responseBody, _jsonOptions);
 
@@ -48,7 +44,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetUserDto>> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
+        public async Task<IActionResult> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -59,12 +55,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             GetUserDto? user = JsonSerializer.Deserialize<GetUserDto>(responseBody, _jsonOptions);
 
@@ -72,7 +63,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("by-email")]
-        public async Task<ActionResult<GetUserDto>> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromQuery] string email)
+        public async Task<IActionResult> GetUser([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromQuery] string email)
         {
             var client = _httpClientFactory.CreateClient("UserService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -90,12 +81,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             var result = await response.Content.ReadFromJsonAsync<GetUserDto>(_jsonOptions);
 
@@ -103,7 +89,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             var client = _httpClientFactory.CreateClient("UserService");
 
@@ -113,18 +99,13 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }
 
         [HttpPost("register/step1/validate")]
-        public async Task<ActionResult> ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        public async Task<IActionResult> ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
         {
             var client = _httpClientFactory.CreateClient("UserService");
 
@@ -134,12 +115,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }
@@ -155,14 +131,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return new ObjectResult(responseBody)
-                {
-                    StatusCode = (int)response.StatusCode,
-                    ContentTypes = { "application/json" }
-                };
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return new ContentResult
             {
@@ -174,7 +143,7 @@ namespace SportReserve_ApiGateway.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
+        public async Task<IActionResult> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("UserService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -185,12 +154,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return NoContent();
         }

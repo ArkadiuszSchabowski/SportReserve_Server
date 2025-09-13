@@ -19,7 +19,7 @@ namespace SportReserve_ApiGateway.Controllers
             _httpResponseHelper = httpResponseHelper;
         }
         [HttpPost("send")]
-        public async Task<ActionResult> SendEmailToAdmin([FromBody] SendEmailToAdminDto dto)
+        public async Task<IActionResult> SendEmailToAdmin([FromBody] SendEmailToAdminDto dto)
         {
             var client = _httpClientFactory.CreateClient("EmailService");
 
@@ -29,12 +29,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }

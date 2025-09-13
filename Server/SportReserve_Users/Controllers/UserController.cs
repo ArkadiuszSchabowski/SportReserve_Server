@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SportReserve_Shared.Models.User;
 using SportReserve_Users.Interfaces.Aggregates;
-using SportReserve_Users.Models;
 
 namespace SportReserve_Users.Controllers
 {
