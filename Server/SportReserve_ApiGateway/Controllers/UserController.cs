@@ -130,14 +130,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return new ObjectResult(responseBody)
-                {
-                    StatusCode = (int)response.StatusCode,
-                    ContentTypes = { "application/json" }
-                };
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return new ContentResult
             {
