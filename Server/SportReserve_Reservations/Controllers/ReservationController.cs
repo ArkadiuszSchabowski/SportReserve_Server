@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using SportReserve_Reservations.Interfaces;
-using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Interfaces;
-using SportReserve_Shared.Models.Race;
 using SportReserve_Shared.Models.Reservation;
 using System.Security.Claims;
 using System.Text.Json;
@@ -33,7 +30,7 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpPost("animal-shelter-race")]
-        public async Task<ActionResult> Add([FromHeader(Name = "Authorization")] string? authorizationHeader, AnimalShelterRace reservation)
+        public async Task<IActionResult> Add([FromHeader(Name = "Authorization")] string? authorizationHeader, AnimalShelterRace reservation)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
