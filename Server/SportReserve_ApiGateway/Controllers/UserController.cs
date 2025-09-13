@@ -35,12 +35,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             List<GetUserDto>? users = JsonSerializer.Deserialize<List<GetUserDto>>(responseBody, _jsonOptions);
 
@@ -59,12 +54,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             GetUserDto? user = JsonSerializer.Deserialize<GetUserDto>(responseBody, _jsonOptions);
 
@@ -90,12 +80,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             var result = await response.Content.ReadFromJsonAsync<GetUserDto>(_jsonOptions);
 
@@ -113,12 +98,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }
@@ -134,12 +114,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }
@@ -185,12 +160,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return NoContent();
         }

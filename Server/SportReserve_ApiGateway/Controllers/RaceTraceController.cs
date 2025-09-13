@@ -34,12 +34,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             List<GetRaceTraceDto>? result = JsonSerializer.Deserialize<List<GetRaceTraceDto>>(responseBody, _jsonOptions);
 
@@ -57,12 +52,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             GetRaceDto? race = JsonSerializer.Deserialize<GetRaceDto>(responseBody, _jsonOptions);
 
@@ -81,12 +71,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return Ok();
         }
@@ -103,12 +88,7 @@ namespace SportReserve_ApiGateway.Controllers
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var actionResult = _httpResponseHelper.HandleErrorResponse(response, responseBody);
-
-            if (actionResult != null)
-            {
-                return actionResult;
-            }
+            _httpResponseHelper.HandleErrorResponse(response, responseBody);
 
             return NoContent();
         }

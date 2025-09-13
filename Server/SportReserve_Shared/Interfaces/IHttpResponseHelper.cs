@@ -4,6 +4,6 @@ namespace SportReserve_Shared.Interfaces
 {
     public interface IHttpResponseHelper
     {
-        IActionResult? HandleErrorResponse(HttpResponseMessage response, string responseBody);
+        void HandleErrorResponse(HttpResponseMessage response, string responseBody);
     }
 }

@@ -47,19 +47,8 @@ namespace SportReserve_Reservations.Services
             var raceResponseBody = await raceHttpResponse.Content.ReadAsStringAsync();
             var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
 
-            var actionResultRaceError = _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
-
-            if (actionResultRaceError != null)
-            {
-                return actionResultRaceError;
-            }
-
-            var actionResultRaceTraceError = _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
-
-            if (actionResultRaceTraceError != null)
-            {
-                return actionResultRaceTraceError;
-            }
+            _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
+            _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
@@ -76,8 +65,6 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<AnimalShelterRace>(collectionName);
             await collection.InsertOneAsync(reservation);
-
-            return null;
         }
 
         public async Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken)
@@ -101,19 +88,8 @@ namespace SportReserve_Reservations.Services
             var raceResponseBody = await raceHttpResponse.Content.ReadAsStringAsync();
             var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
 
-            var actionResultRaceError = _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
-
-            if (actionResultRaceError != null)
-            {
-                return actionResultRaceError;
-            }
-
-            var actionResultRaceTraceError = _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
-
-            if (actionResultRaceTraceError != null)
-            {
-                return actionResultRaceTraceError;
-            }
+            _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
+            _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
@@ -130,8 +106,6 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<LondonHalfMarathonRace>(collectionName);
             await collection.InsertOneAsync(reservation);
-
-            return null;
         }
 
         public async Task AddValentineRace(ValentineRace reservation, string userIdFromToken)
@@ -155,19 +129,9 @@ namespace SportReserve_Reservations.Services
             var raceResponseBody = await raceHttpResponse.Content.ReadAsStringAsync();
             var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
 
-            var actionResultRaceError = _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
+            _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
 
-            if (actionResultRaceError != null)
-            {
-                return actionResultRaceError;
-            }
-
-            var actionResultRaceTraceError = _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
-
-            if (actionResultRaceTraceError != null)
-            {
-                return actionResultRaceTraceError;
-            }
+            _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
@@ -184,8 +148,6 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<ValentineRace>(collectionName);
             await collection.InsertOneAsync(reservation);
-
-            return null;
         }
     }
 }
