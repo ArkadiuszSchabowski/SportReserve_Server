@@ -1,4 +1,4 @@
-﻿namespace SportReserve_Users.Models
+﻿namespace SportReserve_Shared.Models.User
 {
     public class TokenDto
     {
