@@ -6,7 +6,7 @@ namespace SportReserve_ApiGateway.Helpers
 {
     public class HttpResponseHelper : IHttpResponseHelper
     {
-            public ActionResult? HandleErrorResponse(HttpResponseMessage response, string responseBody)
+            public IActionResult? HandleErrorResponse(HttpResponseMessage response, string responseBody)
             {
                 if (!response.IsSuccessStatusCode)
                 {
