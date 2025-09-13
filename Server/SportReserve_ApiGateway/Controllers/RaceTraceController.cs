@@ -24,7 +24,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetRaceTraceDto>>> Get()
+        public async Task<IActionResult> Get()
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
 
@@ -47,7 +47,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetRaceDto>> GetRaceTrace([FromRoute] int id)
+        public async Task<IActionResult> GetRaceTrace([FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
 
@@ -70,7 +70,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddRaceTrace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceTraceDto dto)
+        public async Task<IActionResult> AddRaceTrace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceTraceDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -92,7 +92,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
+        public async Task<IActionResult> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceTraceService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");

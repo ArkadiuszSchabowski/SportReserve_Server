@@ -25,7 +25,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResult<GetRaceDto>>> Get([FromQuery] PaginationDto dto)
+        public async Task<IActionResult> Get([FromQuery] PaginationDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
@@ -54,7 +54,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetRaceDto>> GetRace([FromRoute] int id)
+        public async Task<IActionResult> GetRace([FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
@@ -77,7 +77,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpGet("by-name")]
-        public async Task<ActionResult<GetRaceDto>> GetRace([FromQuery] string name)
+        public async Task<IActionResult> GetRace([FromQuery] string name)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
 
@@ -107,7 +107,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddRace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceDto dto)
+        public async Task<IActionResult> AddRace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceDto dto)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -128,7 +128,7 @@ namespace SportReserve_ApiGateway.Controllers
             return Ok();
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateRace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceDto dto, [FromRoute] int id)
+        public async Task<IActionResult> UpdateRace([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromBody] AddRaceDto dto, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");
@@ -150,7 +150,7 @@ namespace SportReserve_ApiGateway.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
+        public async Task<IActionResult> Remove([FromHeader(Name = "Authorization")] string? authorizationHeader, [FromRoute] int id)
         {
             var client = _httpClientFactory.CreateClient("RaceService");
             client.DefaultRequestHeaders.Add("Authorization", $"{authorizationHeader}");

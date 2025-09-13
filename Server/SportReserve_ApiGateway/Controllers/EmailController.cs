@@ -19,7 +19,7 @@ namespace SportReserve_ApiGateway.Controllers
             _httpResponseHelper = httpResponseHelper;
         }
         [HttpPost("send")]
-        public async Task<ActionResult> SendEmailToAdmin([FromBody] SendEmailToAdminDto dto)
+        public async Task<IActionResult> SendEmailToAdmin([FromBody] SendEmailToAdminDto dto)
         {
             var client = _httpClientFactory.CreateClient("EmailService");
 
