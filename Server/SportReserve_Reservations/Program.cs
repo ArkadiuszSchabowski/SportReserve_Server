@@ -7,6 +7,7 @@ using SportReserve_Reservations.Interfaces;
 using SportReserve_Reservations.Services;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Middleware;
+using SportReserve_Shared.Models.Reservation;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -46,7 +47,7 @@ builder.Services.AddAuthentication(option =>
 });
 
 builder.Services.AddScoped<IReservationAccess, ReservationAccess>();
-builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IReservationService<AnimalShelterRace>, ReservationService>();
 
 builder.Services.AddScoped<IHttpResponseValidator, HttpResponseValidator>();
 builder.Services.AddScoped<IHttpResponseHelper, HttpResponseHelper>();
