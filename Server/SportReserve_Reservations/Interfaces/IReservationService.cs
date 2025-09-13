@@ -1,9 +1,10 @@
-﻿using SportReserve_Shared.Models.Reservation;
+﻿using Microsoft.AspNetCore.Mvc;
+using SportReserve_Shared.Models.Reservation.Base;
 
 namespace SportReserve_Reservations.Interfaces
 {
-    public interface IReservationService
+    public interface IReservationService<T> where T : BaseRace
     {
-        Task AddReservation(AnimalShelterRace race);
+        Task<IActionResult?> Add(T reservation, string userIdFromToken);
     }
 }
