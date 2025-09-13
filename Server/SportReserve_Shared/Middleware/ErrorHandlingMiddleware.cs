@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SportReserve_Shared.Exceptions;
-using System;
-using System.Net;
 
 namespace SportReserve_Shared.Middleware
 {
@@ -14,6 +12,11 @@ namespace SportReserve_Shared.Middleware
                 await next.Invoke(context);
             }
             catch (BadRequestException e)
+            {
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(e.Message);
+            }
+            catch (HttpResponseNullException e)
             {
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(e.Message);
