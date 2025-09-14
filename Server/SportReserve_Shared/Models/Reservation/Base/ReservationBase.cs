@@ -2,6 +2,7 @@
 
 namespace SportReserve_Shared.Models.Reservation.Base
 {
+    [BsonDiscriminator(RootClass = true)]
     public abstract class ReservationBase
     {
         [BsonId]
