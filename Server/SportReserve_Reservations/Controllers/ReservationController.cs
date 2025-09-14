@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportReserve_Reservations.Interfaces;
+using SportReserve_Shared.Models;
 using SportReserve_Shared.Models.Reservation;
 using System.Security.Claims;
 
@@ -48,6 +49,15 @@ namespace SportReserve_Reservations.Controllers
             await _service.AddLondonHalfMarathonRace(reservation, userIdFromToken!);
 
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Get([FromBody] UserIdRequest userIdRequest)
+        {
+            var reservations = await _service.Get(userIdRequest.UserId);
+
+            return Ok(reservations);
         }
     }
 }

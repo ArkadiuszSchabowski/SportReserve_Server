@@ -1,4 +1,5 @@
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson.Serialization;
 using SportReserve_ApiGateway.Helpers;
 using SportReserve_ApiGateway.Validators;
 using SportReserve_Reservations;
@@ -8,6 +9,7 @@ using SportReserve_Reservations.Services;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Middleware;
 using SportReserve_Shared.Models.Reservation;
+using SportReserve_Shared.Models.Reservation.Base;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -67,11 +69,20 @@ builder.Services.AddHttpClient("RaceTraceService", client =>
     client.BaseAddress = new Uri("https://localhost:5002/api/racetrace/");
 });
 
+BsonClassMap.RegisterClassMap<ReservationBase>(cm =>
+{
+    cm.AutoMap();
+    cm.AddKnownType(typeof(AnimalShelterRace));
+    cm.AddKnownType(typeof(ValentineRace));
+    cm.AddKnownType(typeof(LondonHalfMarathonRace));
+});
+
+
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
 
-app.UseMiddleware<ErrorHandlingMiddleware>();
+//app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

@@ -61,7 +61,7 @@ namespace SportReserve_Races.Seeders
                             {
                                 new RaceTrace { Location = "Bristol, Harbourside", DistanceKm = 10, HourOfStart = new TimeOnly(10, 0) }
                             },
-                            IsRegistrationOpen = true
+                            IsRegistrationOpen = false
                         },
                         new Race
                         {

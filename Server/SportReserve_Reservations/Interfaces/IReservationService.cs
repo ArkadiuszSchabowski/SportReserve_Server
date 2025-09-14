@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SportReserve_Shared.Models.Reservation;
+﻿using SportReserve_Shared.Models.Reservation;
+using SportReserve_Shared.Models.Reservation.Base;
 
 namespace SportReserve_Reservations.Interfaces
 {
@@ -8,5 +8,6 @@ namespace SportReserve_Reservations.Interfaces
         Task AddAnimalShelterRace(AnimalShelterRace reservation, string userIdFromToken);
         Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken);
         Task AddValentineRace(ValentineRace reservation, string userIdFromToken);
+        Task<List<ReservationBase>> Get(int userId);
     }
 }
