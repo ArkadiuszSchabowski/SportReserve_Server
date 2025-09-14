@@ -6,6 +6,7 @@ using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.Race;
 using SportReserve_Shared.Models.Reservation;
+using SportReserve_Shared.Models.Reservation.Base;
 using System.Text.Json;
 
 namespace SportReserve_Reservations.Services
@@ -148,6 +149,19 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<ValentineRace>(collectionName);
             await collection.InsertOneAsync(reservation);
+        }
+
+        async Task<List<ReservationBase>> IReservationService.Get(int userId)
+        {
+            string collectionName = "reservations";
+
+            var collection = _reservationAccess.ConnectToMongo<ReservationBase>(collectionName);
+
+            var results = await collection.AsQueryable()
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+
+            return results;
         }
     }
 }
