@@ -8,6 +8,7 @@ using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.Race;
 using SportReserve_Shared.Models.Reservation;
+using SportReserve_Shared.Models.Reservation.Add;
 using SportReserve_Shared.Models.Reservation.Base;
 using System.Text.Json;
 
@@ -29,7 +30,7 @@ namespace SportReserve_Reservations.Services
             _httpResponseHelper = httpResponseHelper;
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
-        public async Task AddAnimalShelterRace(AnimalShelterRace reservation, string userIdFromToken)
+        public async Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
             string raceName = "Run for the Animal Shelter";
@@ -73,10 +74,27 @@ namespace SportReserve_Reservations.Services
             }
 
             var collection = _reservationAccess.ConnectToMongo<AnimalShelterRace>(collectionName);
-            await collection.InsertOneAsync(reservation);
+
+            var animalShelterRace = new AnimalShelterRace()
+            {
+                Id = reservation.Id,
+                DogSize = reservation.DogSize,
+                DonationAmount = reservation.DonationAmount,
+                EmergencyContact = reservation.EmergencyContact,
+                RaceId = getRaceDto.Id,
+                RaceName = getRaceDto.Name,
+                RaceTraceId = getRaceTraceDto.Id,
+                DateOfStart = getRaceDto.DateOfStart,
+                HourOfStart = getRaceTraceDto.HourOfStart,
+                DistanceKm = getRaceTraceDto.DistanceKm,
+                Location = getRaceTraceDto.Location,
+                UserId = int.Parse(userIdFromToken),
+            };
+
+            await collection.InsertOneAsync(animalShelterRace);
         }
 
-        public async Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken)
+        public async Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
             string raceName = "London Half-Marathon Race";
@@ -120,10 +138,27 @@ namespace SportReserve_Reservations.Services
             }
 
             var collection = _reservationAccess.ConnectToMongo<LondonHalfMarathonRace>(collectionName);
-            await collection.InsertOneAsync(reservation);
+
+            var londonHalfMarathonRace = new LondonHalfMarathonRace()
+            {
+                Id = reservation.Id,
+                MedalGratification = reservation.MedalGratification,
+                TeamName = reservation.TeamName,
+                TShirtSize = reservation.TShirtSize,
+                RaceId = getRaceDto.Id,
+                RaceName = getRaceDto.Name,
+                RaceTraceId = getRaceTraceDto.Id,
+                DateOfStart = getRaceDto.DateOfStart,
+                HourOfStart = getRaceTraceDto.HourOfStart,
+                DistanceKm = getRaceTraceDto.DistanceKm,
+                Location = getRaceTraceDto.Location,
+                UserId = int.Parse(userIdFromToken),
+            };
+
+            await collection.InsertOneAsync(londonHalfMarathonRace);
         }
 
-        public async Task AddValentineRace(ValentineRace reservation, string userIdFromToken)
+        public async Task AddValentineRace(AddValentineRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
             string raceName = "Valentine Race with Heart";
@@ -168,7 +203,21 @@ namespace SportReserve_Reservations.Services
             }
 
             var collection = _reservationAccess.ConnectToMongo<ValentineRace>(collectionName);
-            await collection.InsertOneAsync(reservation);
+
+            var valentineRace = new ValentineRace()
+            {
+                Id = reservation.Id,
+                RaceId = getRaceDto.Id,
+                RaceName = getRaceDto.Name,
+                RaceTraceId = getRaceTraceDto.Id,
+                DateOfStart = getRaceDto.DateOfStart,
+                HourOfStart = getRaceTraceDto.HourOfStart,
+                DistanceKm = getRaceTraceDto.DistanceKm,
+                Location = getRaceTraceDto.Location,
+                UserId = int.Parse(userIdFromToken),
+            };
+
+            await collection.InsertOneAsync(valentineRace);
         }
 
         async Task<List<ReservationBase>> IReservationService.Get(int userId)

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Shared.Models;
-using SportReserve_Shared.Models.Reservation;
+using SportReserve_Shared.Models.Reservation.Add;
 using System.Security.Claims;
 
 namespace SportReserve_Reservations.Controllers
@@ -20,7 +20,7 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpPost("animal-shelter-race")]
-        public async Task<IActionResult> AddAnimalShelterRace(AnimalShelterRace reservation)
+        public async Task<IActionResult> AddAnimalShelterRace(AddAnimalShelterRace reservation)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -31,7 +31,7 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpPost("valentine-race")]
-        public async Task<IActionResult> AddValentineRace(ValentineRace reservation)
+        public async Task<IActionResult> AddValentineRace(AddValentineRace reservation)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -42,7 +42,7 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpPost("london-half-marathon-race")]
-        public async Task<IActionResult> AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation)
+        public async Task<IActionResult> AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

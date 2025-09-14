@@ -1,0 +1,11 @@
+﻿using SportReserve_Shared.Models.Reservation.Base;
+
+namespace SportReserve_Shared.Models.Reservation.Add
+{
+    public class AddAnimalShelterRace : ReservationBase
+    {
+        public string? DogSize { get; set; }
+        public int? DonationAmount { get; set; }
+        public string EmergencyContact { get; set; } = string.Empty;
+    }
+}
