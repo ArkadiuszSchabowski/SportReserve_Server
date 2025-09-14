@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Newtonsoft.Json;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Shared.Exceptions;
@@ -30,6 +32,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddAnimalShelterRace(AnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            string raceName = "Run for the Animal Shelter";
 
             var raceClient = _httpClientFactory.CreateClient("RaceService");
             var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
@@ -53,6 +56,11 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
+
+            if(getRaceDto!.Name != raceName)
+            {
+                throw new BadRequestException("The provided race details do not match the expected race.");
+            }
 
             if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
             {
@@ -71,6 +79,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddLondonHalfMarathonRace(LondonHalfMarathonRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            string raceName = "London Half-Marathon Race";
 
             var raceClient = _httpClientFactory.CreateClient("RaceService");
             var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
@@ -94,6 +103,11 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
+
+            if (getRaceDto!.Name != raceName)
+            {
+                throw new BadRequestException("The provided race details do not match the expected race.");
+            }
 
             if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
             {
@@ -112,6 +126,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddValentineRace(ValentineRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            string raceName = "Valentine Race with Heart";
 
             var raceClient = _httpClientFactory.CreateClient("RaceService");
             var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
@@ -136,6 +151,11 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
+
+            if (getRaceDto!.Name != raceName)
+            {
+                throw new BadRequestException("The provided race details do not match the expected race.");
+            }
 
             if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
             {
