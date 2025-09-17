@@ -27,6 +27,16 @@ builder.Services
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReservationPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var authenticationSettings = new AuthenticationSettings();
 
 builder.Services.AddSingleton(authenticationSettings);
@@ -83,6 +93,8 @@ builder.Services.AddScoped<ErrorHandlingMiddleware>();
 var app = builder.Build();
 
 //app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseCors("ReservationPolicy");
 
 if (app.Environment.IsDevelopment())
 {
