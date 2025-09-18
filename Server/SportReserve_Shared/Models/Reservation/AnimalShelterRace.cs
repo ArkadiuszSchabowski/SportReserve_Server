@@ -12,7 +12,7 @@ namespace SportReserve_Shared.Models.Reservation
         public TimeOnly HourOfStart { get; set; }
         public double DistanceKm { get; set; }
         public string? DogSize { get; set; }
-        public int? DonationAmount { get; set; }
+        public double? DonationAmount { get; set; }
         public string EmergencyContact { get; set; } = string.Empty;
     }
 }
