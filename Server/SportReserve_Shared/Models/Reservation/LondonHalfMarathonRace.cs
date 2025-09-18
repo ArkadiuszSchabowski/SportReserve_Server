@@ -13,8 +13,7 @@ namespace SportReserve_Shared.Models.Reservation
         public TimeOnly HourOfStart { get; set; }
         public double DistanceKm { get; set; }
         public string TShirtSize { get; set; } = string.Empty;
-
-        public string? TeamName;
+        public string? TeamName { get; set; }
         public bool MedalGratification { get; set; } = false;
     }
 }
