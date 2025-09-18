@@ -6,7 +6,7 @@ namespace SportReserve_Shared.Models.Reservation.Add
     {
         public string? TShirtSize { get; set; }
 
-        public string? TeamName;
+        public string? TeamName { get; set; }
         public bool MedalGratification { get; set; } = false;
     }
 }
