@@ -14,7 +14,7 @@ namespace SportReserve_Shared.Models.Reservation
         public double DistanceKm { get; set; }
         public string ValentineGadget { get; set; } = string.Empty;
 
-        public string RunType = string.Empty;
+        public string RunType { get; set; } = string.Empty;
         public bool WantsFinisherPhoto { get; set; } = false;
     }
 }
