@@ -231,7 +231,7 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<ReservationBase>(collectionName);
 
-            var totalCounts =  await collection.AsQueryable().CountAsync();
+            var totalCounts =  await collection.AsQueryable().Where(r => r.UserId == id).CountAsync();
 
             var results = await collection.AsQueryable()
                 .Where(r => r.UserId == id)
