@@ -53,9 +53,11 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get([FromBody] UserIdRequest userIdRequest)
+        public async Task<IActionResult> Get()
         {
-            var reservations = await _service.Get(userIdRequest.UserId);
+            var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var reservations = await _service.Get(userIdFromToken!);
 
             return Ok(reservations);
         }

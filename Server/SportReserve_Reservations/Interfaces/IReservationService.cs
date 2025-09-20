@@ -8,6 +8,6 @@ namespace SportReserve_Reservations.Interfaces
         Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken);
         Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken);
         Task AddValentineRace(AddValentineRace reservation, string userIdFromToken);
-        Task<List<ReservationBase>> Get(int userId);
+        Task<List<ReservationBase>> Get(string userId);
     }
 }

@@ -223,14 +223,15 @@ namespace SportReserve_Reservations.Services
             await collection.InsertOneAsync(valentineRace);
         }
 
-        async Task<List<ReservationBase>> IReservationService.Get(int userId)
+        async Task<List<ReservationBase>> IReservationService.Get(string userId)
         {
+            int id = int.Parse(userId);
             string collectionName = "reservations";
 
             var collection = _reservationAccess.ConnectToMongo<ReservationBase>(collectionName);
 
             var results = await collection.AsQueryable()
-                .Where(r => r.UserId == userId)
+                .Where(r => r.UserId == id)
                 .ToListAsync();
 
             return results;
