@@ -215,6 +215,9 @@ namespace SportReserve_Reservations.Services
                 DistanceKm = getRaceTraceDto.DistanceKm,
                 Location = getRaceTraceDto.Location,
                 UserId = int.Parse(userIdFromToken),
+                RunType = reservation.RunType,
+                ValentineGadget = reservation.ValentineGadget,
+                WantsFinisherPhoto = reservation.WantsFinisherPhoto,
             };
 
             await collection.InsertOneAsync(valentineRace);
