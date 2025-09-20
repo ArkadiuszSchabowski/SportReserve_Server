@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Shared.Models;
+using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Reservation.Add;
 using System.Security.Claims;
 
@@ -53,11 +54,11 @@ namespace SportReserve_Reservations.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] PaginationDto dto)
         {
             var userIdFromToken = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var reservations = await _service.Get(userIdFromToken!);
+            var reservations = await _service.Get(userIdFromToken!, dto);
 
             return Ok(reservations);
         }

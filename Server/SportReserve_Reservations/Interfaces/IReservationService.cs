@@ -1,4 +1,5 @@
-﻿using SportReserve_Shared.Models.Reservation.Add;
+﻿using SportReserve_Shared.Models.Pagination;
+using SportReserve_Shared.Models.Reservation.Add;
 using SportReserve_Shared.Models.Reservation.Base;
 
 namespace SportReserve_Reservations.Interfaces
@@ -8,6 +9,6 @@ namespace SportReserve_Reservations.Interfaces
         Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken);
         Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken);
         Task AddValentineRace(AddValentineRace reservation, string userIdFromToken);
-        Task<List<ReservationBase>> Get(string userId);
+        Task<PaginationResult<ReservationBase>> Get(string userId, PaginationDto dto);
     }
 }
