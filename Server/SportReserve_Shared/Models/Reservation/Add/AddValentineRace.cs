@@ -9,7 +9,7 @@ namespace SportReserve_Shared.Models.Reservation.Add
         public string ValentineGadget { get; set; } = string.Empty;
 
         [Required]
-        public string RunType = string.Empty;
+        public string RunType { get; set; } = string.Empty;
 
         public bool WantsFinisherPhoto { get; set; } = false;
     }
