@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Interfaces;
+using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
 using SportReserve_Shared.Models.Reservation;
 using SportReserve_Shared.Models.Reservation.Add;
@@ -223,17 +224,28 @@ namespace SportReserve_Reservations.Services
             await collection.InsertOneAsync(valentineRace);
         }
 
-        async Task<List<ReservationBase>> IReservationService.Get(int userId)
+        async Task<PaginationResult<ReservationBase>> IReservationService.Get(string userId, PaginationDto dto)
         {
+            int id = int.Parse(userId);
             string collectionName = "reservations";
 
             var collection = _reservationAccess.ConnectToMongo<ReservationBase>(collectionName);
 
+            var totalCounts =  await collection.AsQueryable().Where(r => r.UserId == id).CountAsync();
+
             var results = await collection.AsQueryable()
-                .Where(r => r.UserId == userId)
+                .Where(r => r.UserId == id)
+                .Skip((dto.PageNumber - 1) * dto.PageSize)
+                .Take(dto.PageSize)
                 .ToListAsync();
 
-            return results;
+            var result = new PaginationResult<ReservationBase>
+            {
+                Results = results,
+                TotalCount = totalCounts
+            };
+
+            return result;
         }
     }
 }
