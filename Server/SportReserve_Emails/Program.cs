@@ -20,17 +20,22 @@ builder.Services.AddCors(options =>
     });
 });
 
-var emailAuthentication = new EmailAuthentication();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<ISenderFactory, SenderFactory>();
+builder.Services.AddScoped<EmailConsumer>();
 
-var senderFactory = new SenderFactory(emailAuthentication);
+builder.Services.AddSingleton<EmailAuthentication>(sp =>
+{
+    var emailAuthentication = new EmailAuthentication();
+    builder.Configuration.GetSection("EmailAuthentication").Bind(emailAuthentication);
+    return emailAuthentication;
+});
 
-builder.Configuration.GetSection("EmailAuthentication").Bind(emailAuthentication);
-builder.Services.AddSingleton(emailAuthentication);
+builder.Services.AddSingleton<IEmailAuthentication>(sp =>
+    sp.GetRequiredService<EmailAuthentication>());
 
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<ISenderFactory, SenderFactory>();
 
 var app = builder.Build();
 
@@ -50,10 +55,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var emailEventHandler = new EmailEventHandler(emailAuthentication, senderFactory);
-
-var consumer = new EmailConsumer(emailEventHandler);
-
-consumer.ConsumeUserRegisteredEvent();
+using (var scope = app.Services.CreateScope())
+{
+    var consumer = scope.ServiceProvider.GetRequiredService<EmailConsumer>();
+    consumer.ConsumeUserRegisteredEvent();
+}
 
 app.Run();

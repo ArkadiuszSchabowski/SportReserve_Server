@@ -10,11 +10,11 @@ namespace SportReserve_Emails
 {
     public class EmailConsumer : IUserRegisteredEventConsumer
     {
-        private readonly IEmailEventHandler _emailEventHandler;
+        private readonly IEmailService _emailService;
 
-        public EmailConsumer(IEmailEventHandler emailEventHandler)
+        public EmailConsumer(IEmailService emailService)
         {
-            _emailEventHandler = emailEventHandler;
+            _emailService = emailService;
         }
         public void ConsumeUserRegisteredEvent()
         {
@@ -48,7 +48,8 @@ namespace SportReserve_Emails
                     return;
                 }
 
-                _emailEventHandler.SendRegisterEmail(userRegisteredEvent);
+
+                _emailService.SendRegisterEmail(userRegisteredEvent);
 
                 channel.BasicAck(args.DeliveryTag, false);
             };
