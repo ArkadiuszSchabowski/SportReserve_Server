@@ -7,6 +7,7 @@ using SportReserve_Shared.Enums;
 
 namespace SportReserve_Emails_UnitTests.Services
 {
+    [Trait("Category", "Unit")]
     public class EmailServiceUnitTests
     {
         private readonly Mock<IEmailSender> _emailSender;
