@@ -3,9 +3,9 @@ using SportReserve_Shared.Models.User;
 
 namespace SportReserve_Emails.Interfaces
 {
-    public interface IEmailService
+    public interface IEmailSender
     {
         Task SendEmailToAdmin(SendEmailToAdminDto dto);
-        Task SendRegisterEmail(UserRegisteredEventDto userRegisteredEvent);
+        Task SendRegisterEmail(UserRegisteredEventDto dto);
     }
 }

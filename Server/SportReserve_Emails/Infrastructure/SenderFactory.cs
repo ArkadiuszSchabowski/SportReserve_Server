@@ -8,9 +8,9 @@ namespace SportReserve_Emails.Infrastructure
 {
     public class SenderFactory : ISenderFactory
     {
-        private readonly EmailAuthentication _emailAuthentication;
+        private readonly IEmailAuthentication _emailAuthentication;
 
-        public SenderFactory(EmailAuthentication emailAuthentication)
+        public SenderFactory(IEmailAuthentication emailAuthentication)
         {
             _emailAuthentication = emailAuthentication;
         }

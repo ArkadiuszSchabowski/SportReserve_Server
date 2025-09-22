@@ -1,28 +1,23 @@
-﻿using FluentEmail.Core;
-using SportReserve_Emails.Interfaces;
+﻿using SportReserve_Emails.Interfaces;
 using SportReserve_Shared.Models.Email;
+using SportReserve_Shared.Models.User;
 namespace SportReserve_Emails.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly EmailAuthentication _emailAuthentication;
-        private readonly ISenderFactory _senderFactory;
+        private readonly IEmailSender _emailSender;
 
-        public EmailService(EmailAuthentication emailAuthentication, ISenderFactory senderFactory)
+        public EmailService(IEmailSender emailSender)
         {
-            _emailAuthentication = emailAuthentication;
-            _senderFactory = senderFactory;
+            _emailSender = emailSender;
         }
         public async Task SendEmailToAdmin(SendEmailToAdminDto dto)
         {
-            _senderFactory.CreateSender();
-
-            var email = await Email
-                .From(emailAddress: _emailAuthentication.Email)
-                .To(emailAddress: _emailAuthentication.Email)
-                .Subject(dto.Subject)
-                .Body($"Message from: {dto.From}, {dto.Message}")
-                .SendAsync();
+            await _emailSender.SendEmailToAdmin(dto);
+        }
+        public async Task SendRegisterEmail(UserRegisteredEventDto dto)
+        {
+            await _emailSender.SendRegisterEmail(dto);
         }
     }
 }
