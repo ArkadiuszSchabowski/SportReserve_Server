@@ -7,6 +7,7 @@ using SportReserve_Reservations.DataAccess;
 using SportReserve_Reservations.Factories;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Reservations.Services;
+using SportReserve_Reservations.Validators;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Middleware;
 using SportReserve_Shared.Models.Reservation;
@@ -64,6 +65,11 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 
 builder.Services.AddScoped<IHttpResponseValidator, HttpResponseValidator>();
 builder.Services.AddScoped<IHttpResponseHelper, HttpResponseHelper>();
+builder.Services.AddScoped<IReservationValidator, ReservationValidator>();
+builder.Services.AddScoped<IAnimalShelterRaceReservationValidator, AnimalShelterRaceReservationValidator>();
+builder.Services.AddScoped<IValentineRaceReservationValidator, ValentineRaceReservationValidator>();
+builder.Services.AddScoped<ILondonHalfMarathonRaceReservationValidator, LondonHalfMarathonRaceReservationValidator>();
+builder.Services.AddScoped<IClientFactory, HttpClientFactory>();
 
 builder.Services.AddHttpClient("UserService", client =>
 {
