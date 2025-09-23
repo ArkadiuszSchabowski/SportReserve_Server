@@ -4,6 +4,7 @@ using SportReserve_ApiGateway.Helpers;
 using SportReserve_ApiGateway.Validators;
 using SportReserve_Reservations;
 using SportReserve_Reservations.DataAccess;
+using SportReserve_Reservations.Factories;
 using SportReserve_Reservations.Interfaces;
 using SportReserve_Reservations.Services;
 using SportReserve_Shared.Interfaces;
