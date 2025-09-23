@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Reservations",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Emails_UnitTests", "..\SportReserve_Emails_UnitTests\SportReserve_Emails_UnitTests.csproj", "{46BFF455-7716-4573-B0F6-A8E6F81A5B7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportReserve_Reservations_UnitTests", "..\SportReserve_Reservations_UnitTests\SportReserve_Reservations_UnitTests.csproj", "{34349639-6224-4C5A-88A6-5538C13EDA4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{46BFF455-7716-4573-B0F6-A8E6F81A5B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46BFF455-7716-4573-B0F6-A8E6F81A5B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46BFF455-7716-4573-B0F6-A8E6F81A5B7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34349639-6224-4C5A-88A6-5538C13EDA4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34349639-6224-4C5A-88A6-5538C13EDA4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34349639-6224-4C5A-88A6-5538C13EDA4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34349639-6224-4C5A-88A6-5538C13EDA4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

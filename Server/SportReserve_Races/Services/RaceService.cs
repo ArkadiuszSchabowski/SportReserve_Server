@@ -10,7 +10,6 @@ namespace SportReserve_Races.Services
     {
         private readonly IRaceAggregateRepository _repository;
         private readonly IRaceAggregateValidator _validator;
-
         private readonly IMapper _mapper;
 
         public RaceService(IRaceAggregateRepository repository, IRaceAggregateValidator validator, IMapper mapper)

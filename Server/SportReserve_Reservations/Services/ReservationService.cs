@@ -18,26 +18,35 @@ namespace SportReserve_Reservations.Services
     public class ReservationService : IReservationService
     {
         private readonly IReservationAccess _reservationAccess;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IClientFactory _clientFactory;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly IHttpResponseHelper _httpResponseHelper;
+        private readonly IAnimalShelterRaceReservationValidator _reservationValidator;
+        private readonly IOptions<JsonOptions> jsonOptions;
+        private readonly IAnimalShelterRaceReservationValidator _animalShelterRaceReservationValidator;
+        private readonly IValentineRaceReservationValidator _valentineRaceReservationValidator;
+        private readonly ILondonHalfMarathonRaceReservationValidator _londonHalfMarathonRaceReservationValidator;
         private readonly JsonSerializerOptions _jsonOptions;
 
-        public ReservationService(IReservationAccess reservationAccess, IHttpClientFactory httpClientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IOptions<JsonOptions> jsonOptions)
+        public ReservationService(IReservationAccess reservationAccess, IClientFactory clientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IAnimalShelterRaceReservationValidator reservationValidator, IOptions<JsonOptions> jsonOptions, IAnimalShelterRaceReservationValidator animalShelterRaceReservationValidator, IValentineRaceReservationValidator valentineRaceReservationValidator, ILondonHalfMarathonRaceReservationValidator londonHalfMarathonRaceReservationValidator)
         {
             _reservationAccess = reservationAccess;
-            _httpClientFactory = httpClientFactory;
+            _clientFactory = clientFactory;
             _httpResponseValidator = httpResponseValidator;
             _httpResponseHelper = httpResponseHelper;
+            _reservationValidator = reservationValidator;
+            this.jsonOptions = jsonOptions;
+            _animalShelterRaceReservationValidator = animalShelterRaceReservationValidator;
+            _valentineRaceReservationValidator = valentineRaceReservationValidator;
+            _londonHalfMarathonRaceReservationValidator = londonHalfMarathonRaceReservationValidator;
             _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
         public async Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
-            string raceName = "Run for the Animal Shelter";
 
-            var raceClient = _httpClientFactory.CreateClient("RaceService");
-            var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
+            var raceClient = _clientFactory.CreateClient("RaceService");
+            var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
 
             var raceTask = raceClient.GetAsync($"{reservation.RaceId}");
             var raceTraceTask = raceTraceClient.GetAsync($"{reservation.RaceTraceId}");
@@ -59,20 +68,9 @@ namespace SportReserve_Reservations.Services
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
 
-            if(getRaceDto!.Name != raceName)
-            {
-                throw new BadRequestException("The provided race details do not match the expected race.");
-            }
+            var userId = reservation.UserId.ToString();
 
-            if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
-            {
-                throw new BadRequestException("Race does not contain the specified race trace.");
-            }
-
-            if (reservation.UserId.ToString() != userIdFromToken)
-            {
-                throw new ForbiddenException("Cannot create a reservation for another user.");
-            }
+            _animalShelterRaceReservationValidator.ValidateAnimalShelterRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
             var collection = _reservationAccess.ConnectToMongo<AnimalShelterRace>(collectionName);
 
@@ -82,9 +80,9 @@ namespace SportReserve_Reservations.Services
                 DogSize = reservation.DogSize,
                 DonationAmount = reservation.DonationAmount,
                 EmergencyContact = reservation.EmergencyContact,
-                RaceId = getRaceDto.Id,
+                RaceId = getRaceDto!.Id,
                 RaceName = getRaceDto.Name,
-                RaceTraceId = getRaceTraceDto.Id,
+                RaceTraceId = getRaceTraceDto!.Id,
                 DateOfStart = getRaceDto.DateOfStart,
                 HourOfStart = getRaceTraceDto.HourOfStart,
                 DistanceKm = getRaceTraceDto.DistanceKm,
@@ -98,10 +96,9 @@ namespace SportReserve_Reservations.Services
         public async Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
-            string raceName = "London Half-Marathon Race";
 
-            var raceClient = _httpClientFactory.CreateClient("RaceService");
-            var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
+            var raceClient = _clientFactory.CreateClient("RaceService");
+            var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
 
             var raceTask = raceClient.GetAsync($"{reservation.RaceId}");
             var raceTraceTask = raceTraceClient.GetAsync($"{reservation.RaceTraceId}");
@@ -123,20 +120,9 @@ namespace SportReserve_Reservations.Services
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
 
-            if (getRaceDto!.Name != raceName)
-            {
-                throw new BadRequestException("The provided race details do not match the expected race.");
-            }
+            var userId = reservation.UserId.ToString();
 
-            if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
-            {
-                throw new BadRequestException("Race does not contain the specified race trace.");
-            }
-
-            if (reservation.UserId.ToString() != userIdFromToken)
-            {
-                throw new ForbiddenException("Cannot create a reservation for another user.");
-            }
+            _londonHalfMarathonRaceReservationValidator.ValidateLondonHalfMarathonRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
             var collection = _reservationAccess.ConnectToMongo<LondonHalfMarathonRace>(collectionName);
 
@@ -146,9 +132,9 @@ namespace SportReserve_Reservations.Services
                 MedalGratification = reservation.MedalGratification,
                 TeamName = reservation.TeamName,
                 TShirtSize = reservation.TShirtSize,
-                RaceId = getRaceDto.Id,
+                RaceId = getRaceDto!.Id,
                 RaceName = getRaceDto.Name,
-                RaceTraceId = getRaceTraceDto.Id,
+                RaceTraceId = getRaceTraceDto!.Id,
                 DateOfStart = getRaceDto.DateOfStart,
                 HourOfStart = getRaceTraceDto.HourOfStart,
                 DistanceKm = getRaceTraceDto.DistanceKm,
@@ -162,10 +148,9 @@ namespace SportReserve_Reservations.Services
         public async Task AddValentineRace(AddValentineRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
-            string raceName = "Valentine Race with Heart";
 
-            var raceClient = _httpClientFactory.CreateClient("RaceService");
-            var raceTraceClient = _httpClientFactory.CreateClient("RaceTraceService");
+            var raceClient = _clientFactory.CreateClient("RaceService");
+            var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
 
             var raceTask = raceClient.GetAsync($"{reservation.RaceId}");
             var raceTraceTask = raceTraceClient.GetAsync($"{reservation.RaceTraceId}");
@@ -188,29 +173,18 @@ namespace SportReserve_Reservations.Services
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
 
-            if (getRaceDto!.Name != raceName)
-            {
-                throw new BadRequestException("The provided race details do not match the expected race.");
-            }
+            var userId = reservation.UserId.ToString();
 
-            if (getRaceDto!.Id != getRaceTraceDto!.ParentRaceId)
-            {
-                throw new BadRequestException("Race does not contain the specified race trace.");
-            }
-
-            if (reservation.UserId.ToString() != userIdFromToken)
-            {
-                throw new ForbiddenException("Cannot create a reservation for another user.");
-            }
+            _valentineRaceReservationValidator.ValidateValentineRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
             var collection = _reservationAccess.ConnectToMongo<ValentineRace>(collectionName);
 
             var valentineRace = new ValentineRace()
             {
                 Id = reservation.Id,
-                RaceId = getRaceDto.Id,
-                RaceName = getRaceDto.Name,
-                RaceTraceId = getRaceTraceDto.Id,
+                RaceId = getRaceDto!.Id,
+                RaceName = getRaceDto!.Name,
+                RaceTraceId = getRaceTraceDto!.Id,
                 DateOfStart = getRaceDto.DateOfStart,
                 HourOfStart = getRaceTraceDto.HourOfStart,
                 DistanceKm = getRaceTraceDto.DistanceKm,
@@ -231,7 +205,7 @@ namespace SportReserve_Reservations.Services
 
             var collection = _reservationAccess.ConnectToMongo<ReservationBase>(collectionName);
 
-            var totalCounts =  await collection.AsQueryable().Where(r => r.UserId == id).CountAsync();
+            var totalCounts = await collection.AsQueryable().Where(r => r.UserId == id).CountAsync();
 
             var results = await collection.AsQueryable()
                 .Where(r => r.UserId == id)
