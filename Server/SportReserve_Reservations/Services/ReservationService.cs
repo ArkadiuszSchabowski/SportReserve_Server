@@ -38,6 +38,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -61,8 +62,6 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _animalShelterRaceReservationValidator.ValidateAnimalShelterRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
@@ -90,6 +89,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -113,8 +113,6 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _londonHalfMarathonRaceReservationValidator.ValidateLondonHalfMarathonRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
@@ -142,6 +140,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddValentineRace(AddValentineRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -161,13 +160,10 @@ namespace SportReserve_Reservations.Services
             var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
 
             _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
-
             _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _valentineRaceReservationValidator.ValidateValentineRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
