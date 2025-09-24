@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Newtonsoft.Json;
 using SportReserve_Reservations.Interfaces;
-using SportReserve_Shared.Exceptions;
 using SportReserve_Shared.Interfaces;
 using SportReserve_Shared.Models.Pagination;
 using SportReserve_Shared.Models.Race;
 using SportReserve_Shared.Models.Reservation;
 using SportReserve_Shared.Models.Reservation.Add;
 using SportReserve_Shared.Models.Reservation.Base;
-using System.Text.Json;
 
 namespace SportReserve_Reservations.Services
 {
@@ -21,29 +17,24 @@ namespace SportReserve_Reservations.Services
         private readonly IClientFactory _clientFactory;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly IHttpResponseHelper _httpResponseHelper;
-        private readonly IAnimalShelterRaceReservationValidator _reservationValidator;
-        private readonly IOptions<JsonOptions> jsonOptions;
         private readonly IAnimalShelterRaceReservationValidator _animalShelterRaceReservationValidator;
         private readonly IValentineRaceReservationValidator _valentineRaceReservationValidator;
         private readonly ILondonHalfMarathonRaceReservationValidator _londonHalfMarathonRaceReservationValidator;
-        private readonly JsonSerializerOptions _jsonOptions;
 
-        public ReservationService(IReservationAccess reservationAccess, IClientFactory clientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IAnimalShelterRaceReservationValidator reservationValidator, IOptions<JsonOptions> jsonOptions, IAnimalShelterRaceReservationValidator animalShelterRaceReservationValidator, IValentineRaceReservationValidator valentineRaceReservationValidator, ILondonHalfMarathonRaceReservationValidator londonHalfMarathonRaceReservationValidator)
+        public ReservationService(IReservationAccess reservationAccess, IClientFactory clientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IAnimalShelterRaceReservationValidator animalShelterRaceReservationValidator, IValentineRaceReservationValidator valentineRaceReservationValidator, ILondonHalfMarathonRaceReservationValidator londonHalfMarathonRaceReservationValidator)
         {
             _reservationAccess = reservationAccess;
             _clientFactory = clientFactory;
             _httpResponseValidator = httpResponseValidator;
             _httpResponseHelper = httpResponseHelper;
-            _reservationValidator = reservationValidator;
-            this.jsonOptions = jsonOptions;
             _animalShelterRaceReservationValidator = animalShelterRaceReservationValidator;
             _valentineRaceReservationValidator = valentineRaceReservationValidator;
             _londonHalfMarathonRaceReservationValidator = londonHalfMarathonRaceReservationValidator;
-            _jsonOptions = jsonOptions.Value.JsonSerializerOptions;
         }
         public async Task AddAnimalShelterRace(AddAnimalShelterRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -67,8 +58,6 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _animalShelterRaceReservationValidator.ValidateAnimalShelterRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
@@ -96,6 +85,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddLondonHalfMarathonRace(AddLondonHalfMarathonRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -119,8 +109,6 @@ namespace SportReserve_Reservations.Services
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _londonHalfMarathonRaceReservationValidator.ValidateLondonHalfMarathonRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
@@ -148,6 +136,7 @@ namespace SportReserve_Reservations.Services
         public async Task AddValentineRace(AddValentineRace reservation, string userIdFromToken)
         {
             string collectionName = "reservations";
+            var userId = reservation.UserId.ToString();
 
             var raceClient = _clientFactory.CreateClient("RaceService");
             var raceTraceClient = _clientFactory.CreateClient("RaceTraceService");
@@ -167,13 +156,10 @@ namespace SportReserve_Reservations.Services
             var raceTraceResponseBody = await raceTraceHttpResponse.Content.ReadAsStringAsync();
 
             _httpResponseHelper.HandleErrorResponse(raceHttpResponse, raceResponseBody);
-
             _httpResponseHelper.HandleErrorResponse(raceTraceHttpResponse, raceTraceResponseBody);
 
             var getRaceDto = JsonConvert.DeserializeObject<GetRaceDto>(raceResponseBody);
             var getRaceTraceDto = JsonConvert.DeserializeObject<GetRaceTraceDto>(raceTraceResponseBody);
-
-            var userId = reservation.UserId.ToString();
 
             _valentineRaceReservationValidator.ValidateValentineRaceReservation(getRaceDto!, getRaceTraceDto!, userId, userIdFromToken);
 
