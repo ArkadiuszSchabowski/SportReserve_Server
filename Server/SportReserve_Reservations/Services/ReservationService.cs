@@ -21,7 +21,7 @@ namespace SportReserve_Reservations.Services
         private readonly IClientFactory _clientFactory;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly IHttpResponseHelper _httpResponseHelper;
-        private readonly IAnimalShelterRaceReservationValidator _reservationValidator;
+        private readonly IReservationValidator _reservationValidator;
         private readonly IOptions<JsonOptions> jsonOptions;
         private readonly IAnimalShelterRaceReservationValidator _animalShelterRaceReservationValidator;
         private readonly IValentineRaceReservationValidator _valentineRaceReservationValidator;
