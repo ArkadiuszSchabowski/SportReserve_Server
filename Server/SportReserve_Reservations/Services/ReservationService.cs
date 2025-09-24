@@ -19,18 +19,16 @@ namespace SportReserve_Reservations.Services
         private readonly IClientFactory _clientFactory;
         private readonly IHttpResponseValidator _httpResponseValidator;
         private readonly IHttpResponseHelper _httpResponseHelper;
-        private readonly IReservationValidator _reservationValidator;
         private readonly IAnimalShelterRaceReservationValidator _animalShelterRaceReservationValidator;
         private readonly IValentineRaceReservationValidator _valentineRaceReservationValidator;
         private readonly ILondonHalfMarathonRaceReservationValidator _londonHalfMarathonRaceReservationValidator;
 
-        public ReservationService(IReservationAccess reservationAccess, IClientFactory clientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IReservationValidator reservationValidator, IOptions<JsonOptions> jsonOptions, IAnimalShelterRaceReservationValidator animalShelterRaceReservationValidator, IValentineRaceReservationValidator valentineRaceReservationValidator, ILondonHalfMarathonRaceReservationValidator londonHalfMarathonRaceReservationValidator)
+        public ReservationService(IReservationAccess reservationAccess, IClientFactory clientFactory, IHttpResponseValidator httpResponseValidator, IHttpResponseHelper httpResponseHelper, IAnimalShelterRaceReservationValidator animalShelterRaceReservationValidator, IValentineRaceReservationValidator valentineRaceReservationValidator, ILondonHalfMarathonRaceReservationValidator londonHalfMarathonRaceReservationValidator)
         {
             _reservationAccess = reservationAccess;
             _clientFactory = clientFactory;
             _httpResponseValidator = httpResponseValidator;
             _httpResponseHelper = httpResponseHelper;
-            _reservationValidator = reservationValidator;
             _animalShelterRaceReservationValidator = animalShelterRaceReservationValidator;
             _valentineRaceReservationValidator = valentineRaceReservationValidator;
             _londonHalfMarathonRaceReservationValidator = londonHalfMarathonRaceReservationValidator;
